@@ -6,6 +6,7 @@ import {
     DatePicker,
     Empty,
     List,
+    Progress,
     Row,
     Segmented,
     Space,
@@ -14,6 +15,7 @@ import {
     Tag,
     Typography,
     message,
+    theme,
 } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
 import type { Dayjs } from 'dayjs'
@@ -23,7 +25,6 @@ import isoWeek from 'dayjs/plugin/isoWeek'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 import quarterOfYear from 'dayjs/plugin/quarterOfYear'
 import {
-    AuditOutlined,
     CheckCircleOutlined,
     ClockCircleOutlined,
     ExclamationCircleOutlined,
@@ -45,7 +46,6 @@ import {
 
 import { db } from '@/firebase/config'
 import DashboardPage from '@/components/shared/DashboardPage'
-import DashboardHeader from '@/components/shared/DashboardHeader'
 import DashboardMetricCard from '@/components/shared/DashboardMetricCard'
 import { FilterBar } from '@/components/shared/FilterBar'
 import { ThemedHighcharts } from '@/components/shared/ThemedHighcharts'
@@ -54,6 +54,7 @@ import { useFullIdentity } from '@/hooks/useFullIdentity'
 import { useRegisterAgentPageContext } from '@/context/AgentPageContext'
 import { listComplianceRows } from '@/services/complianceService'
 import { matchesActiveProgram } from '@/services/workspaceProgramsService'
+import { UpcomingWeekCard, type OverdueInterventionItem } from './UpcomingWeekCard'
 import '@/styles/dashboard.css'
 import '@/styles/compliance-tracker.css'
 
@@ -273,9 +274,11 @@ const getDelta = (current: number, previous: number) => {
     const difference = current - previous
 
     if (previous === 0) {
+        const percent = current > 0 ? 100 : 0
         return {
             label: current > 0 ? '+100%' : '0%',
             positive: difference >= 0,
+            percent,
         }
     }
 
@@ -284,6 +287,7 @@ const getDelta = (current: number, previous: number) => {
     return {
         label: `${percent > 0 ? '+' : ''}${percent}%`,
         positive: difference >= 0,
+        percent,
     }
 }
 
@@ -743,6 +747,7 @@ const isCarriedOverIntoBucket = (
 
 export default function OperationsDashboard() {
     const navigate = useNavigate()
+    const { token } = theme.useToken()
     const { activeProgramId, isAllPrograms } = useActiveProgramId()
     const { user, loading: identityLoading } = useFullIdentity()
     const { width } = useWindowSize()
@@ -815,6 +820,22 @@ export default function OperationsDashboard() {
     }, [fetchDashboardData])
 
     const previousRange = useMemo(() => getPreviousRange(dateRange), [dateRange])
+
+    const overdueInterventionItems = useMemo<OverdueInterventionItem[]>(() => {
+        const today = dayjs().endOf('day')
+
+        return interventions
+            .map((row) => ({ row, dueDate: toDayjs(row.dueDate) }))
+            .filter(({ row, dueDate }) => dueDate.isValid() && dueDate.isBefore(today, 'day') && !isCompletedIntervention(row))
+            .map(({ row, dueDate }) => ({
+                id: row.id,
+                title: getInterventionTitle(row),
+                participantName: getInterventionParticipantName(row),
+                owner: getInterventionOwner(row),
+                dueDate,
+                daysLate: today.diff(dueDate, 'day'),
+            }))
+    }, [interventions])
 
     const computed = useMemo(() => {
         const currentEnd = dateRange?.[1] || null
@@ -1137,46 +1158,6 @@ export default function OperationsDashboard() {
         </Space>
     )
 
-    const readinessOptions: Highcharts.Options = {
-        chart: {
-            type: 'pie',
-            height: isMobile ? 240 : 280,
-            backgroundColor: 'transparent',
-        },
-        title: { text: undefined },
-        credits: { enabled: false },
-        legend: { enabled: !isMobile },
-        tooltip: {
-            pointFormat: '<b>{point.y}</b> SMEs',
-        },
-        plotOptions: {
-            pie: {
-                innerSize: '62%',
-                dataLabels: {
-                    enabled: true,
-                    formatter: function () {
-                        return this.y && this.y > 0 ? `${this.name}: ${this.y}` : ''
-                    },
-                    style: {
-                        textOutline: 'none',
-                        fontSize: isMobile ? '10px' : '11px',
-                    },
-                },
-            },
-        },
-        series: [
-            {
-                type: 'pie',
-                name: 'SMEs',
-                data: [
-                    { name: 'Clear', y: computed.readinessCounts.clear, color: '#22c55e' },
-                    { name: 'Attention', y: computed.readinessCounts.attention, color: '#f59e0b' },
-                    { name: 'Needs Action', y: computed.readinessCounts.needsAction, color: '#ef4444' },
-                ],
-            },
-        ],
-    }
-
     const interventionOptions: Highcharts.Options = {
         chart: {
             height: isMobile ? 260 : 300,
@@ -1351,66 +1332,12 @@ export default function OperationsDashboard() {
         },
     ]
 
-    const smeImpactOptions: Highcharts.Options = {
-        chart: { height: isMobile ? 260 : 320, backgroundColor: 'transparent' },
-        title: { text: undefined },
-        credits: { enabled: false },
-        xAxis: { categories: computed.impactCategories, crosshair: true },
-        yAxis: [
-            { min: 0, allowDecimals: false, title: { text: 'Employees' } },
-            { min: 0, title: { text: 'Revenue' }, opposite: true },
-        ],
-        legend: { enabled: true },
-        tooltip: { shared: true },
-        plotOptions: {
-            column: {
-                borderRadius: 8,
-                dataLabels: {
-                    enabled: true,
-                    formatter: function () {
-                        return this.y && this.y > 0 ? String(this.y) : ''
-                    },
-                    style: { textOutline: 'none', fontSize: isMobile ? '10px' : '11px' },
-                },
-            },
-            spline: { marker: { enabled: true, radius: 4 }, lineWidth: 3 },
-        },
-        series: [
-            {
-                type: 'column',
-                name: 'Employees',
-                color: '#2563eb',
-                data: computed.employeeSeries,
-                yAxis: 0,
-            },
-            {
-                type: 'spline',
-                name: 'Revenue',
-                color: '#16a34a',
-                data: computed.revenueSeries,
-                yAxis: 1,
-            },
-        ],
-    }
-
-    const readinessCard = (
-        <Card
-            className="dashboard-section-card"
-            bordered={false}
+    const upcomingWeekCard = (
+        <UpcomingWeekCard
+            overdueInterventions={overdueInterventionItems}
             loading={cardLoading}
-            title={
-                <Space>
-                    <AuditOutlined />
-                    <span>Compliance Readiness Overview</span>
-                </Space>
-            }
-        >
-            {computed.activeSMEs === 0 ? (
-                <Empty description="No SMEs found for this program." />
-            ) : (
-                <ThemedHighcharts options={readinessOptions} />
-            )}
-        </Card>
+            onViewSchedule={() => navigate('/operations/interventions/appointments')}
+        />
     )
 
     const interventionCard = (
@@ -1511,28 +1438,46 @@ export default function OperationsDashboard() {
                     <span>SME Impact</span>
                 </Space>
             }
-            extra={
-                <Text type="secondary">
-                    {computed.employees} employees / {formatCompactCurrency(computed.revenue)} revenue
-                </Text>
-            }
         >
-            {computed.impactCategories.length === 0 ||
-                (computed.employees === 0 && computed.revenue === 0) ? (
-                <Empty description="No employee or revenue metrics found for this selected period." />
-            ) : (
-                <ThemedHighcharts options={smeImpactOptions} />
-            )}
+            <Space size={32} wrap style={{ width: '100%', justifyContent: 'space-evenly' }}>
+                <div style={{ textAlign: 'center' }}>
+                    <Progress
+                        type="circle"
+                        size={110}
+                        percent={Math.min(100, Math.abs(revenueDelta.percent))}
+                        strokeColor={revenueDelta.positive ? token.colorSuccess : token.colorError}
+                        format={() => revenueDelta.label}
+                    />
+                    <div style={{ marginTop: 10 }}>
+                        <Text strong>Impact on revenue</Text>
+                        <br />
+                        <Text type="secondary">
+                            {formatCompactCurrency(computed.revenue)} vs {formatCompactCurrency(computed.previousRevenue)} previous
+                        </Text>
+                    </div>
+                </div>
+
+                <div style={{ textAlign: 'center' }}>
+                    <Progress
+                        type="circle"
+                        size={110}
+                        percent={Math.min(100, Math.abs(employeesDelta.percent))}
+                        strokeColor={employeesDelta.positive ? token.colorSuccess : token.colorError}
+                        format={() => employeesDelta.label}
+                    />
+                    <div style={{ marginTop: 10 }}>
+                        <Text strong>Impact on employees</Text>
+                        <br />
+                        <Text type="secondary">
+                            {computed.employees} vs {computed.previousEmployees} previous
+                        </Text>
+                    </div>
+                </div>
+            </Space>
         </Card>
     )
     return (
         <DashboardPage className="dashboard-home-page operations-dashboard-page">
-            <DashboardHeader
-                title="Delivery Overview"
-                subtitle="Track onboarding readiness, compliance pressure, and intervention progress across your active program."
-                actions={!isMobile ? filterControls : undefined}
-            />
-
             {cardLoading ? (
                 <Card loading={identityLoading || initialLoading} className="dashboard-section-card" bordered={false}>
                     <div style={{ minHeight: 180, display: 'grid', placeItems: 'center' }}>
@@ -1614,12 +1559,12 @@ export default function OperationsDashboard() {
                             </>
                         )}
                     </Row>
-                    {isMobile && <FilterBar title="Dashboard filters" primary={filterControls} />}
+                    <FilterBar title="Dashboard filters" primary={filterControls} />
 
                     {isMobile ? (
                         <List
                             split={false}
-                            dataSource={[readinessCard, interventionCard, riskClassificationCard, smeImpactCard]}
+                            dataSource={[upcomingWeekCard, interventionCard, riskClassificationCard, smeImpactCard]}
                             renderItem={(item, index) => (
                                 <List.Item style={{ padding: index === 3 ? 0 : '0 0 16px' }}>
                                     {item}
@@ -1629,22 +1574,24 @@ export default function OperationsDashboard() {
                     ) : (
                         <>
                             <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
-                                <Col xs={24} lg={12}>
-                                    {readinessCard}
+                                <Col xs={24}>
+                                    {upcomingWeekCard}
+                                </Col>
+                            </Row>
+
+                            <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
+                                <Col xs={24} lg={16}>
+                                    {interventionCard}
                                 </Col>
 
-                                <Col xs={24} lg={12}>
-                                    {interventionCard}
+                                <Col xs={24} lg={8}>
+                                    {smeImpactCard}
                                 </Col>
                             </Row>
 
                             <Row gutter={[16, 16]}>
-                                <Col xs={24} lg={12}>
+                                <Col xs={24}>
                                     {riskClassificationCard}
-                                </Col>
-
-                                <Col xs={24} lg={12}>
-                                    {smeImpactCard}
                                 </Col>
                             </Row>
                         </>
