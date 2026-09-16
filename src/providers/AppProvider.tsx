@@ -9,6 +9,7 @@ import { AssignedInterventionsProvider } from '@/contexts/AssignedInterventionsC
 import { SystemSettingsProvider } from '@/contexts/SystemSettingsContext'
 import { UsageTrackingProvider } from './UsageTrackingProvider'
 import { BackgroundTasksProvider } from './BackgroundTasksProvider'
+import { AppUpdateModal } from '@/components/shared/AppUpdateModal'
 
 export const AppProviders: React.FC<React.PropsWithChildren> = ({ children }) => {
     return (
@@ -21,7 +22,10 @@ export const AppProviders: React.FC<React.PropsWithChildren> = ({ children }) =>
                                 <AssignedInterventionsProvider>
                                     <BackgroundTasksProvider>
                                         <UsageTrackingProvider>
-                                            <AntdApp>{children}</AntdApp>
+                                            <AntdApp>
+                                                {children}
+                                                <AppUpdateModal />
+                                            </AntdApp>
                                         </UsageTrackingProvider>
                                     </BackgroundTasksProvider>
                                 </AssignedInterventionsProvider>

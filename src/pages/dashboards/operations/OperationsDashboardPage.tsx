@@ -3,21 +3,16 @@ import {
     Button,
     Card,
     Col,
-    DatePicker,
     Empty,
     List,
     Progress,
     Row,
-    Segmented,
     Space,
     Spin,
-    Table,
-    Tag,
     Typography,
     message,
     theme,
 } from 'antd'
-import type { ColumnsType } from 'antd/es/table'
 import type { Dayjs } from 'dayjs'
 import dayjs from 'dayjs'
 import isBetween from 'dayjs/plugin/isBetween'
@@ -25,8 +20,6 @@ import isoWeek from 'dayjs/plugin/isoWeek'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 import quarterOfYear from 'dayjs/plugin/quarterOfYear'
 import {
-    CheckCircleOutlined,
-    ClockCircleOutlined,
     ExclamationCircleOutlined,
     ExpandAltOutlined,
     FileDoneOutlined,
@@ -47,14 +40,13 @@ import {
 import { db } from '@/firebase/config'
 import DashboardPage from '@/components/shared/DashboardPage'
 import DashboardMetricCard from '@/components/shared/DashboardMetricCard'
-import { FilterBar } from '@/components/shared/FilterBar'
 import { ThemedHighcharts } from '@/components/shared/ThemedHighcharts'
 import { useActiveProgramId } from '@/hooks/useActiveProgramId'
 import { useFullIdentity } from '@/hooks/useFullIdentity'
 import { useRegisterAgentPageContext } from '@/context/AgentPageContext'
 import { listComplianceRows } from '@/services/complianceService'
 import { matchesActiveProgram } from '@/services/workspaceProgramsService'
-import { UpcomingWeekCard, type OverdueInterventionItem } from './UpcomingWeekCard'
+import { UpcomingWeekCard, type InterventionDueItem } from './UpcomingWeekCard'
 import '@/styles/dashboard.css'
 import '@/styles/compliance-tracker.css'
 
@@ -63,7 +55,6 @@ dayjs.extend(isoWeek)
 dayjs.extend(isSameOrBefore)
 dayjs.extend(quarterOfYear)
 
-const { RangePicker } = DatePicker
 const { Text } = Typography
 
 const RISK_REGISTER_ROUTE = '/operations/risk-register'
@@ -758,8 +749,8 @@ export default function OperationsDashboard() {
 
     const [initialLoading, setInitialLoading] = useState(true)
     const [cardLoading, setCardLoading] = useState(false)
-    const [filterPreset, setFilterPreset] = useState<FilterPreset>('month')
-    const [dateRange, setDateRange] = useState<[Dayjs, Dayjs] | null>(
+    const [filterPreset] = useState<FilterPreset>('month')
+    const [dateRange] = useState<[Dayjs, Dayjs] | null>(
         getRangeFromPreset('month'),
     )
     const [rows, setRows] = useState<ParticipantRow[]>([])
@@ -821,19 +812,16 @@ export default function OperationsDashboard() {
 
     const previousRange = useMemo(() => getPreviousRange(dateRange), [dateRange])
 
-    const overdueInterventionItems = useMemo<OverdueInterventionItem[]>(() => {
-        const today = dayjs().endOf('day')
-
+    const interventionDueItems = useMemo<InterventionDueItem[]>(() => {
         return interventions
             .map((row) => ({ row, dueDate: toDayjs(row.dueDate) }))
-            .filter(({ row, dueDate }) => dueDate.isValid() && dueDate.isBefore(today, 'day') && !isCompletedIntervention(row))
+            .filter(({ row, dueDate }) => dueDate.isValid() && !isCompletedIntervention(row))
             .map(({ row, dueDate }) => ({
                 id: row.id,
                 title: getInterventionTitle(row),
                 participantName: getInterventionParticipantName(row),
                 owner: getInterventionOwner(row),
                 dueDate,
-                daysLate: today.diff(dueDate, 'day'),
             }))
     }, [interventions])
 
@@ -1035,6 +1023,13 @@ export default function OperationsDashboard() {
     const employeesDelta = getDelta(computed.employees, computed.previousEmployees)
     const revenueDelta = getDelta(computed.revenue, computed.previousRevenue)
 
+    const smesHealthPercent = computed.activeSMEs > 0
+        ? Math.round(((computed.activeSMEs - computed.needsAction) / computed.activeSMEs) * 100)
+        : 0
+    const complianceHealthPercent = computed.activeSMEs > 0
+        ? Math.round((computed.readinessCounts.clear / computed.activeSMEs) * 100)
+        : 0
+
     useRegisterAgentPageContext({
         pageName: 'Delivery Overview',
         pagePurpose:
@@ -1111,52 +1106,6 @@ export default function OperationsDashboard() {
             'Future dates are excluded from the intervention progress buckets.',
         ],
     })
-
-    const filterControls = (
-        <Space wrap>
-            <Segmented
-                value={filterPreset}
-                onChange={value => {
-                    const preset = value as FilterPreset
-                    setFilterPreset(preset)
-                    if (preset !== 'custom') setDateRange(getRangeFromPreset(preset))
-                }}
-                options={[
-                    { label: 'Today', value: 'today' },
-                    { label: 'This Week', value: 'week' },
-                    { label: 'This Month', value: 'month' },
-                    { label: 'Custom', value: 'custom' },
-                ]}
-            />
-
-            <RangePicker
-                value={dateRange}
-                allowClear={false}
-                disabled={filterPreset !== 'custom'}
-                onChange={dates => {
-                    setFilterPreset('custom')
-                    setDateRange(dates as [Dayjs, Dayjs])
-                }}
-                presets={[
-                    {
-                        label: 'This Quarter',
-                        value: [dayjs().startOf('quarter'), dayjs().endOf('quarter')],
-                    },
-                    {
-                        label: 'This Year',
-                        value: [dayjs().startOf('year'), dayjs().endOf('year')],
-                    },
-                    {
-                        label: 'Last 12 Months',
-                        value: [
-                            dayjs().subtract(11, 'month').startOf('month'),
-                            dayjs().endOf('month'),
-                        ],
-                    },
-                ]}
-            />
-        </Space>
-    )
 
     const interventionOptions: Highcharts.Options = {
         chart: {
@@ -1295,48 +1244,57 @@ export default function OperationsDashboard() {
         ],
     }
 
-    const riskCategoryColumns: ColumnsType<RiskCategoryRow> = [
-        {
-            title: 'Risk class',
-            dataIndex: 'label',
-            ellipsis: true,
-        },
-        {
-            title: 'Description',
-            dataIndex: 'description',
-            ellipsis: true,
-        },
-        {
-            title: 'Open risks',
-            dataIndex: 'count',
-            align: 'center',
-            width: 110,
-        },
-        {
-            title: 'Severity split',
-            render: (_, row) => (
-                <Space wrap>
-                    {row.critical > 0 && <Tag color="red">C {row.critical}</Tag>}
-                    {row.high > 0 && <Tag color="volcano">H {row.high}</Tag>}
-                    {row.medium > 0 && <Tag color="orange">M {row.medium}</Tag>}
-                    {row.low > 0 && <Tag color="blue">L {row.low}</Tag>}
-                    {row.count === 0 && <Tag>Clear</Tag>}
-                </Space>
-            ),
-            width: 210,
-        },
-        {
-            title: 'Ops action',
-            dataIndex: 'action',
-            ellipsis: true,
-        },
-    ]
-
     const upcomingWeekCard = (
         <UpcomingWeekCard
-            overdueInterventions={overdueInterventionItems}
+            interventionDueItems={interventionDueItems}
             loading={cardLoading}
             onViewSchedule={() => navigate('/operations/interventions/appointments')}
+        />
+    )
+
+    const activeSmesCard = (
+        <DashboardMetricCard
+            loading={identityLoading || initialLoading}
+            icon={<TeamOutlined />}
+            iconClassName="dashboard-icon-blue"
+            label="Active SMEs"
+            value={computed.activeSMEs}
+            hint={`${smeDelta.label} from previous`}
+        />
+    )
+
+    const smesHealthCard = (
+        <DashboardMetricCard
+            loading={identityLoading || initialLoading}
+            icon={<TeamOutlined />}
+            iconClassName="dashboard-icon-green"
+            label="SMEs Health"
+            value={`${smesHealthPercent}%`}
+            hint={`${computed.needsAction} SMEs need action`}
+        />
+    )
+
+    const revenueEmployeesCard = (
+        <DashboardMetricCard
+            loading={identityLoading || initialLoading}
+            icon={<TeamOutlined />}
+            iconClassName="dashboard-icon-orange"
+            label="Revenue & Employees"
+            value={`${formatCompactCurrency(computed.revenue)} / ${computed.employees}`}
+            hint={`${revenueDelta.label} revenue · ${employeesDelta.label} employees`}
+        />
+    )
+
+    const complianceHealthCard = (
+        <DashboardMetricCard
+            loading={identityLoading || initialLoading}
+            icon={<SafetyCertificateOutlined />}
+            iconClassName="dashboard-icon-red"
+            label="Compliance Health"
+            value={`${complianceHealthPercent}%`}
+            hint={`${computed.readinessCounts.clear} of ${computed.activeSMEs} SMEs fully compliant`}
+            clickable
+            onClick={() => navigate('/operations/participants/compliance')}
         />
     )
 
@@ -1392,37 +1350,7 @@ export default function OperationsDashboard() {
             {computed.riskRegisterRows.length === 0 ? (
                 <Empty description="No operational risks found for this program." />
             ) : (
-                <Space orientation="vertical" size={12} style={{ width: '100%' }}>
-                    <ThemedHighcharts options={riskClassificationOptions} />
-                    {isMobile ? (
-                        <List
-                            dataSource={computed.riskCategoryRows}
-                            renderItem={row => (
-                                <List.Item>
-                                    <Card size="small" className="dashboard-mobile-record">
-                                        <Space orientation="vertical">
-                                            <Text strong>{row.label}</Text>
-                                            <Text>{row.description}</Text>
-                                            <Space wrap>
-                                                <Tag>{row.count} open</Tag>
-                                                {row.critical > 0 && <Tag color="red">Critical {row.critical}</Tag>}
-                                                {row.high > 0 && <Tag color="volcano">High {row.high}</Tag>}
-                                            </Space>
-                                        </Space>
-                                    </Card>
-                                </List.Item>
-                            )}
-                        />
-                    ) : (
-                        <Table
-                            rowKey="key"
-                            columns={riskCategoryColumns}
-                            dataSource={computed.riskCategoryRows}
-                            pagination={false}
-                            scroll={{ x: 860 }}
-                        />
-                    )}
-                </Space>
+                <ThemedHighcharts options={riskClassificationOptions} />
             )}
         </Card>
     )
@@ -1486,85 +1414,28 @@ export default function OperationsDashboard() {
                 </Card>
             ) : (
                 <>
-                    <Row gutter={[12, 12]} className="dashboard-metrics-row">
-                        {isMobile ? (
-                            <>
-                                <Col xs={12}>
-                                    <DashboardMetricCard
-                                        loading={identityLoading || initialLoading}
-                                        icon={<TeamOutlined />}
-                                        iconClassName="dashboard-icon-blue"
-                                        label="Active SMEs"
-                                        value={computed.activeSMEs}
-                                        hint={`${smeDelta.label} from previous`}
-                                    />
-                                </Col>
+                    <Row gutter={[12, 12]} className="dashboard-metrics-row" style={{ marginBottom: 16 }}>
+                        <Col xs={12} lg={6}>
+                            {activeSmesCard}
+                        </Col>
 
-                                <Col xs={12}>
-                                    <DashboardMetricCard
-                                        loading={identityLoading || initialLoading}
-                                        icon={<TeamOutlined />}
-                                        iconClassName="dashboard-icon-green"
-                                        label="Employees"
-                                        value={computed.employees}
-                                        hint={`${employeesDelta.label} from previous`}
-                                    />
-                                </Col>
-                            </>
-                        ) : (
-                            <>
-                                <Col xs={24} sm={12} xl={6}>
-                                    <DashboardMetricCard
-                                        loading={identityLoading || initialLoading}
-                                        icon={<SafetyCertificateOutlined />}
-                                        iconClassName="dashboard-icon-blue"
-                                        label="Active SMEs"
-                                        value={computed.activeSMEs}
-                                        hint={`${smeDelta.label} from previous`}
-                                    />
-                                </Col>
+                        <Col xs={12} lg={6}>
+                            {smesHealthCard}
+                        </Col>
 
-                                <Col xs={24} sm={12} xl={6}>
-                                    <DashboardMetricCard
-                                        loading={identityLoading || initialLoading}
-                                        icon={<CheckCircleOutlined />}
-                                        iconClassName="dashboard-icon-green"
-                                        label="Fully Onboarded"
-                                        value={computed.fullyOnboarded}
-                                        hint={`${onboardedDelta.label} from previous`}
-                                    />
-                                </Col>
+                        <Col xs={12} lg={6}>
+                            {revenueEmployeesCard}
+                        </Col>
 
-                                <Col xs={24} sm={12} xl={6}>
-                                    <DashboardMetricCard
-                                        loading={identityLoading || initialLoading}
-                                        icon={<TeamOutlined />}
-                                        iconClassName="dashboard-icon-orange"
-                                        label="Employees"
-                                        value={computed.employees}
-                                        hint={`${employeesDelta.label} from previous`}
-                                    />
-                                </Col>
-
-                                <Col xs={24} sm={12} xl={6}>
-                                    <DashboardMetricCard
-                                        loading={identityLoading || initialLoading}
-                                        icon={<ClockCircleOutlined />}
-                                        iconClassName="dashboard-icon-red"
-                                        label="SME Revenue"
-                                        value={formatCompactCurrency(computed.revenue)}
-                                        hint={`${revenueDelta.label} from previous`}
-                                    />
-                                </Col>
-                            </>
-                        )}
+                        <Col xs={12} lg={6}>
+                            {complianceHealthCard}
+                        </Col>
                     </Row>
-                    <FilterBar title="Dashboard filters" primary={filterControls} />
 
                     {isMobile ? (
                         <List
                             split={false}
-                            dataSource={[upcomingWeekCard, interventionCard, riskClassificationCard, smeImpactCard]}
+                            dataSource={[interventionCard, upcomingWeekCard, riskClassificationCard, smeImpactCard]}
                             renderItem={(item, index) => (
                                 <List.Item style={{ padding: index === 3 ? 0 : '0 0 16px' }}>
                                     {item}
@@ -1574,24 +1445,22 @@ export default function OperationsDashboard() {
                     ) : (
                         <>
                             <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
-                                <Col xs={24}>
+                                <Col xs={24} lg={12}>
+                                    {interventionCard}
+                                </Col>
+
+                                <Col xs={24} lg={12}>
                                     {upcomingWeekCard}
                                 </Col>
                             </Row>
 
-                            <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
-                                <Col xs={24} lg={16}>
-                                    {interventionCard}
-                                </Col>
-
-                                <Col xs={24} lg={8}>
-                                    {smeImpactCard}
-                                </Col>
-                            </Row>
-
                             <Row gutter={[16, 16]}>
-                                <Col xs={24}>
+                                <Col xs={24} lg={12}>
                                     {riskClassificationCard}
+                                </Col>
+
+                                <Col xs={24} lg={12}>
+                                    {smeImpactCard}
                                 </Col>
                             </Row>
                         </>

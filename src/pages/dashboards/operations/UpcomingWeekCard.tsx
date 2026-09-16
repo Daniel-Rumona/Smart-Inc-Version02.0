@@ -27,18 +27,17 @@ import {
 const { Text } = Typography
 const { useBreakpoint } = Grid
 
-export type OverdueInterventionItem = {
+export type InterventionDueItem = {
     id: string
     title: string
     participantName: string
     owner: string
     dueDate: Dayjs
-    daysLate: number
 }
 
 type Props = {
-    /** Interventions past due and not completed. The dashboard already computes this for the risk register, so it's passed in rather than re-derived here. */
-    overdueInterventions: OverdueInterventionItem[]
+    /** Interventions not yet completed, keyed by their actual due date. Computed by the dashboard from the same data as the risk register, so it's passed in rather than re-derived here. */
+    interventionDueItems: InterventionDueItem[]
     loading?: boolean
     onViewSchedule?: () => void
 }
@@ -55,7 +54,7 @@ type AppointmentRow = {
     endTime?: unknown
 }
 
-type AgendaKind = 'appointment' | 'task' | 'overdue'
+type AgendaKind = 'appointment' | 'task' | 'intervention'
 
 type AgendaItem = {
     id: string
@@ -75,7 +74,7 @@ type AgendaItem = {
 const KIND_LABEL: Record<AgendaKind, string> = {
     appointment: 'Appointment',
     task: 'Task',
-    overdue: 'Intervention',
+    intervention: 'Intervention',
 }
 
 const TASK_PRIORITY_META: Record<OperationsTaskPriority, { label: string; color: string }> = {
@@ -92,11 +91,12 @@ const meetingIcon = (value?: MeetingType) => {
 }
 
 /**
- * Operations' "what needs my attention this week" card: intervention appointments and task
- * deadlines bucketed onto the day they fall on, plus overdue interventions pinned to today since
- * they need acting on now rather than on whatever day they were originally due.
+ * Operations' "what needs my attention this week" card: appointments, task deadlines, and
+ * intervention due dates, each bucketed onto the day they actually fall on. Interventions whose
+ * due date falls outside the visible week (including ones overdue from an earlier week) simply
+ * don't have a matching day tile, so they drop off the calendar on their own.
  */
-export const UpcomingWeekCard = ({ overdueInterventions, loading: overdueLoading = false, onViewSchedule }: Props) => {
+export const UpcomingWeekCard = ({ interventionDueItems, loading: interventionsLoading = false, onViewSchedule }: Props) => {
     const { token } = theme.useToken()
     const screens = useBreakpoint()
     const isMobile = !screens.md
@@ -138,7 +138,7 @@ export const UpcomingWeekCard = ({ overdueInterventions, loading: overdueLoading
         return subscribeOperationsTasks(user, (rows) => { setTasks(rows); setTasksLoading(false) }, () => setTasksLoading(false))
     }, [user])
 
-    const loading = overdueLoading || appointmentsLoading || tasksLoading
+    const loading = interventionsLoading || appointmentsLoading || tasksLoading
 
     const agendaItems = useMemo<AgendaItem[]>(() => {
         const items: AgendaItem[] = []
@@ -191,26 +191,35 @@ export const UpcomingWeekCard = ({ overdueInterventions, loading: overdueLoading
                 })
             })
 
-        const todayKey = dayjs().format('YYYY-MM-DD')
-        overdueInterventions.forEach((item) => {
+        const today = dayjs().startOf('day')
+        interventionDueItems.forEach((item) => {
+            const dueDate = item.dueDate.startOf('day')
+            const daysUntil = dueDate.diff(today, 'day')
+            const isOverdue = daysUntil < 0
+            const isDueToday = daysUntil === 0
+
             items.push({
-                id: `overdue-${item.id}`,
-                kind: 'overdue',
-                day: todayKey,
-                sortAt: -Infinity,
+                id: `intervention-${item.id}`,
+                kind: 'intervention',
+                day: dueDate.format('YYYY-MM-DD'),
+                sortAt: dueDate.valueOf(),
                 title: item.title,
                 subtitle: item.participantName,
-                timeLabel: `${item.daysLate} day${item.daysLate === 1 ? '' : 's'} overdue`,
-                tagLabel: 'Overdue',
-                tagColor: 'red',
+                timeLabel: isOverdue
+                    ? `${Math.abs(daysUntil)} day${Math.abs(daysUntil) === 1 ? '' : 's'} overdue`
+                    : isDueToday
+                        ? 'Due today'
+                        : `Due in ${daysUntil}d`,
+                tagLabel: isOverdue ? 'Overdue' : isDueToday ? 'Due today' : 'Due',
+                tagColor: isOverdue ? 'red' : isDueToday ? 'gold' : 'blue',
                 icon: <ExclamationCircleOutlined />,
-                accent: token.colorError,
-                onClick: () => navigate('/operations/risk-register'),
+                accent: isOverdue ? token.colorError : token.colorWarning,
+                onClick: () => navigate('/operations/interventions/assigned'),
             })
         })
 
         return items
-    }, [activeProgramId, appointments, navigate, onViewSchedule, overdueInterventions, tasks, token, user])
+    }, [activeProgramId, appointments, interventionDueItems, navigate, onViewSchedule, tasks, token, user])
 
     const itemsByDay = useMemo(() => {
         const map = new Map<string, AgendaItem[]>()
@@ -257,7 +266,7 @@ export const UpcomingWeekCard = ({ overdueInterventions, loading: overdueLoading
                 const key = day.format('YYYY-MM-DD')
                 const dayItems = itemsByDay.get(key) || []
                 const count = dayItems.length
-                const hasOverdue = dayItems.some((item) => item.kind === 'overdue')
+                const hasOverdue = dayItems.some((item) => item.kind === 'intervention' && item.tagColor === 'red')
                 const selected = day.isSame(selectedDate, 'day')
                 const today = day.isSame(dayjs(), 'day')
 
