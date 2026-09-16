@@ -1,0 +1,417 @@
+/* =========================================================
+   Survey Response
+   The SME answers one question at a time, in the same frame
+   the builder previews.
+   ========================================================= */
+
+.survey-response-page,
+.incubatee-surveys-page {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+
+    min-height: 100%;
+}
+
+.survey-response-card {
+    width: min(760px, 100%);
+
+    margin-inline: auto;
+}
+
+.survey-response-card>.ant-card-body {
+    padding: 0;
+}
+
+.survey-response-head .ant-typography {
+    margin: 0 0 2px;
+}
+
+.survey-response-control {
+    width: 100%;
+}
+
+.survey-response-error {
+    display: block;
+
+    margin-top: 6px;
+
+    color: #dc2626;
+
+    font-size: 12px;
+}
+
+/* Docked full width: the three actions always split the bar evenly rather than
+   clustering to one side. */
+.survey-response-nav {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
+.survey-response-nav>.ant-btn {
+    flex: 1 1 0;
+}
+
+
+/* =========================================================
+   Survey List
+   ========================================================= */
+
+.survey-answer-list {
+    display: flex;
+    flex-direction: column;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+.survey-answer-row {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 10px 2px;
+
+    border-bottom: 1px solid rgba(109, 93, 251, .1);
+}
+
+.survey-answer-row:last-child {
+    border-bottom: 0;
+}
+
+.survey-answer-icon {
+    flex: 0 0 auto;
+
+    display: grid;
+    place-items: center;
+
+    width: 32px;
+    height: 32px;
+
+    border-radius: 50%;
+
+    font-size: 14px;
+}
+
+.survey-answer-icon.is-not-started {
+    color: #d97706;
+    background: rgba(245, 158, 11, .14);
+}
+
+.survey-answer-icon.is-in-progress {
+    color: #2563eb;
+    background: rgba(37, 99, 235, .1);
+}
+
+.survey-answer-icon.is-submitted {
+    color: #059669;
+    background: rgba(5, 150, 105, .12);
+}
+
+.survey-answer-copy {
+    flex: 1;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.survey-answer-copy strong {
+    overflow: hidden;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.survey-answer-copy span {
+    overflow: hidden;
+
+    color: rgba(100, 116, 139, .95);
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    font-size: 12px;
+}
+
+.survey-answer-status {
+    flex: 0 0 auto;
+
+    margin-inline-end: 0 !important;
+}
+
+html[data-theme='dark'] .survey-answer-row {
+    border-color: rgba(139, 92, 246, .16);
+}
+
+html[data-theme='dark'] .survey-answer-copy span {
+    color: rgba(226, 232, 240, .62);
+}
+
+@media (max-width: 767px) {
+    .survey-answer-status {
+        display: none;
+    }
+
+    /* incubatee.css turns the shared "2 metrics on mobile" rule back off for
+       every `.incubatee-page` (compliance has room for all of its metrics on a
+       phone). This page doesn't, so opt back in with a more specific selector. */
+    .incubatee-page.incubatee-surveys-page .dashboard-metrics-row>div:nth-child(n + 3) {
+        display: none;
+    }
+}
+
+
+/* =========================================================
+   Mobile Fullscreen Chrome
+   The response flow gets the whole phone screen: the system's
+   own topbar pill and bottom bar step aside (see
+   useFullscreenMobilePage) for this page's own header, and the
+   question actions dock to the true bottom of the viewport.
+   Desktop keeps the normal shell; only the action bar changes.
+   ========================================================= */
+
+.survey-response-mobile-header {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .survey-response-page {
+        min-height: 100dvh;
+
+        padding-top: 56px;
+    }
+
+    /* The survey name already sits in the fixed header above; showing it again
+       in the frame would repeat it right below. */
+    .survey-response-page .survey-frame-survey-title {
+        display: none;
+    }
+
+    .survey-response-mobile-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 30;
+
+        display: grid;
+        grid-template-columns: 40px 1fr 40px;
+        align-items: center;
+
+        height: 56px;
+        padding: 0 8px;
+
+        background: var(--ant-color-bg-container, #fff);
+        border-bottom: 1px solid rgba(109, 93, 251, .12);
+    }
+
+    .survey-response-back-btn.ant-btn {
+        border-color: rgba(109, 93, 251, .3);
+    }
+
+    .survey-response-mobile-title {
+        overflow: hidden;
+
+        color: inherit;
+
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        font-size: 15px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    /* Card chrome (border, shadow, radius) reads as a floating panel; a
+       fullscreen flow should look like the page itself instead. */
+    .survey-response-page .survey-response-card {
+        min-height: calc(100dvh - 56px);
+
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+
+        background: transparent;
+    }
+
+    .survey-response-page .survey-response-card>.ant-card-body {
+        display: flex;
+        flex-direction: column;
+
+        min-height: calc(100dvh - 56px);
+    }
+
+    .survey-response-page .survey-frame {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+
+        /* Reserved once here, at the container level, so the card below only
+           has to centre itself — not also guess at footer clearance. */
+        padding-bottom: 84px;
+    }
+
+    /* The question reads as its own floating card rather than bare text on the
+       page background. It sizes to its content — not the full space above the
+       docked bar — and auto-margins keep it centred without ballooning into a
+       card full of dead air for a one-line question. */
+    .survey-response-page .survey-frame-body {
+        position: relative;
+
+        display: flex;
+        flex: 0 1 auto;
+        flex-direction: column;
+        justify-content: center;
+
+        min-height: 300px;
+        /* A short question never gets near this — it's a ceiling for the rare
+           long one, so it can scroll internally instead of the page having to,
+           since .app-content.is-chromeless no longer scrolls at all. */
+        max-height: calc(100dvh - 172px);
+        margin: auto 16px;
+        padding: 30px 22px 32px;
+
+        overflow-x: hidden;
+        overflow-y: auto;
+        scrollbar-width: none;
+
+        border: 1px solid rgba(109, 93, 251, .18);
+        border-radius: 22px;
+
+        background:
+            radial-gradient(120% 90% at 100% 0%, rgba(109, 93, 251, .14), transparent 60%),
+            linear-gradient(180deg, rgba(109, 93, 251, .07), rgba(109, 93, 251, .015) 55%, transparent);
+        box-shadow: 0 18px 40px rgba(15, 23, 42, .22), inset 0 1px 0 rgba(255, 255, 255, .04);
+    }
+
+    .survey-response-page .survey-frame-body::-webkit-scrollbar {
+        display: none;
+    }
+
+    .survey-response-page .survey-frame-body>* {
+        position: relative;
+        z-index: 1;
+    }
+
+    /* A round badge reads as a step marker; the bare number felt like a stray label. */
+    .survey-response-page .survey-frame-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 38px;
+        height: 38px;
+
+        border-radius: 50%;
+
+        background: linear-gradient(135deg, rgba(109, 93, 251, .3), rgba(59, 130, 246, .18));
+        color: #a99bff;
+
+        font-size: 15px;
+        letter-spacing: 0;
+    }
+
+    .survey-response-page .survey-frame-control .ant-input,
+    .survey-response-page .survey-frame-control .ant-input-affix-wrapper,
+    .survey-response-page .survey-frame-control .ant-select-selector,
+    .survey-response-page .survey-frame-control .ant-picker {
+        min-height: 46px !important;
+
+        border-radius: 14px !important;
+    }
+
+    .survey-response-page .survey-frame-control .ant-input {
+        padding-block: 11px;
+    }
+
+    /* No card behind the actions — they sit straight on the page, like the
+       header above them. */
+    .survey-response-page .survey-frame-footer {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 30;
+
+        padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+
+        background: transparent;
+        border-top: 0;
+    }
+
+    .survey-response-nav {
+        gap: 8px;
+    }
+
+    .survey-response-nav>.ant-btn {
+        height: auto;
+        min-height: 40px;
+        padding: 6px 8px;
+
+        white-space: normal;
+
+        font-size: 13px;
+        line-height: 1.2;
+    }
+}
+
+html[data-theme='dark'] .survey-response-mobile-header {
+    background: rgba(23, 25, 35, .92);
+    border-color: rgba(139, 92, 246, .24);
+}
+
+html[data-theme='dark'] .survey-response-page .survey-frame-body {
+    border-color: rgba(139, 92, 246, .22);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, .38), inset 0 1px 0 rgba(255, 255, 255, .03);
+}
+
+
+/* =========================================================
+   Response Review (operations)
+   Read-only playback of one participant's submitted answers.
+   ========================================================= */
+
+.survey-review {
+    display: flex;
+    flex-direction: column;
+}
+
+.survey-review-heading {
+    margin: 18px 0 6px !important;
+}
+
+.survey-review-heading:first-child {
+    margin-top: 0 !important;
+}
+
+.survey-review-row {
+    padding: 12px 0;
+
+    border-bottom: 1px solid rgba(109, 93, 251, .1);
+}
+
+.survey-review-row:last-child {
+    border-bottom: 0;
+}
+
+.survey-review-question {
+    display: block;
+
+    margin-bottom: 6px;
+
+    font-size: 13px;
+}
+
+html[data-theme='dark'] .survey-review-row {
+    border-color: rgba(139, 92, 246, .16);
+}

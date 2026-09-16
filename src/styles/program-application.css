@@ -1,0 +1,360 @@
+/* ==========================================================================
+   1. Core Layout & Generic Structural Elements
+   ========================================================================== */
+.program-application-page {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 24px;
+}
+
+.program-application-loading {
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.program-application-back-top {
+    right: 28px;
+    bottom: 92px;
+    z-index: 898;
+}
+
+/* Consolidated Shadows & Border Radii */
+.program-application-header,
+.program-application-soft-card,
+.program-application-ai-card,
+.program-application-ai-docs,
+.program-application-metric {
+    border-radius: 20px;
+    box-shadow: 0 12px 34px rgba(15, 23, 42, 0.06);
+}
+
+.program-application-header .ant-typography {
+    margin-top: 0;
+}
+
+.program-application-help-text,
+.program-application-doc-description {
+    font-size: 12px;
+    margin: 0 !important;
+}
+
+/* ==========================================================================
+   2. Compact Header & Global Actions
+   ========================================================================== */
+.program-application-header>.ant-card-body {
+    padding: 18px 24px 14px;
+}
+
+.program-application-header-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+}
+
+.program-application-heading,
+.program-application-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.program-application-heading .ant-btn {
+    flex-shrink: 0;
+}
+
+.program-application-heading .program-application-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.program-application-header-progress {
+    display: grid;
+    gap: 6px;
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(100, 116, 139, 0.12);
+}
+
+.program-application-actions {
+    display: flex;
+    justify-content: flex-end;
+    flex-shrink: 0;
+}
+
+/* ==========================================================================
+   3. Document Collection Section
+   ========================================================================== */
+.program-application-doc-card {
+    border-radius: 18px;
+    border: 1px solid rgba(100, 116, 139, 0.14);
+}
+
+.program-application-doc-card.is-active {
+    border-color: rgba(22, 119, 255, 0.48);
+    box-shadow: 0 12px 30px rgba(22, 119, 255, 0.1);
+}
+
+.program-application-doc-main {
+    width: 100%;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.program-application-doc-copy {
+    flex: 1 1 320px;
+    min-width: 0;
+}
+
+.program-application-doc-actions {
+    flex: 0 1 420px;
+    min-width: 260px;
+    display: grid;
+    grid-template-columns: minmax(180px, 1fr) minmax(160px, 1fr);
+    gap: 10px;
+}
+
+/* ==========================================================================
+   4. AI Flow / Interactive Chat Components
+   ========================================================================== */
+.program-application-ai-single {
+    width: 100%;
+    margin: 0;
+}
+
+.program-application-ai-card {
+    border-radius: 22px;
+}
+
+.program-application-ai-card>.ant-card-body {
+    padding: 24px;
+}
+
+.program-application-ai-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 420px;
+    gap: 14px;
+    align-items: start;
+}
+
+.program-application-ai-docs {
+    grid-column: 1 / -1;
+    border-radius: 18px;
+    background: rgba(100, 116, 139, 0.04);
+}
+
+.program-application-ai-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.program-application-ai-progress {
+    margin-bottom: 16px;
+}
+
+.program-application-ai-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+}
+
+/* Chat Layout & Feed */
+.program-application-chat-list {
+    max-height: 420px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-right: 4px;
+}
+
+.program-application-chat-list.is-full {
+    min-height: 280px;
+    max-height: 55vh;
+    overflow-y: auto;
+    padding-right: 4px;
+    margin-bottom: 16px;
+}
+
+.program-application-chat-row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.program-application-chat-row.is-user {
+    flex-direction: row-reverse;
+}
+
+.program-application-chat-bubble {
+    max-width: min(720px, 82%);
+    padding: 12px 15px;
+    border-radius: 16px;
+    background: rgba(100, 116, 139, 0.08);
+}
+
+.program-application-chat-row.is-user .program-application-chat-bubble {
+    background: rgba(22, 119, 255, 0.1);
+}
+
+.program-application-next-card {
+    margin-bottom: 16px;
+    border-radius: 16px;
+    border: 1px solid rgba(22, 119, 255, 0.25);
+    background: rgba(22, 119, 255, 0.035);
+}
+
+.program-application-chat-composer {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
+    align-items: flex-end;
+    margin-bottom: 16px;
+}
+
+/* ==========================================================================
+   5. Miscellaneous Overrides
+   ========================================================================== */
+.program-application-metric .ant-statistic-title {
+    margin-bottom: 4px;
+    font-size: 12px;
+}
+
+.program-application-title {
+    margin: 0 !important;
+}
+
+.program-application-section-card {
+    width: 100%;
+    margin: 0 0 20px;
+    border: 1px solid rgba(100, 116, 139, .14) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, .045);
+}
+
+.program-application-section-card>.ant-card-body {
+    padding: 24px;
+}
+
+.program-application-manual-form>.ant-space {
+    gap: 20px !important;
+}
+
+/* ==========================================================================
+   6. Dark Mode Styles
+   ========================================================================== */
+html[data-theme='dark'] .program-application-header,
+html[data-theme='dark'] .program-application-soft-card,
+html[data-theme='dark'] .program-application-ai-card,
+html[data-theme='dark'] .program-application-ai-docs,
+html[data-theme='dark'] .program-application-metric {
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
+}
+
+html[data-theme='dark'] .program-application-chat-bubble {
+    background: rgba(148, 163, 184, 0.12);
+}
+
+html[data-theme='dark'] .program-application-chat-row.is-user .program-application-chat-bubble {
+    background: rgba(59, 130, 246, 0.18);
+}
+
+/* ==========================================================================
+   7. Responsive Breakdown Metrics
+   ========================================================================== */
+@media (max-width: 991px) {
+    .program-application-page {
+        gap: 12px;
+    }
+
+    .program-application-ai-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .program-application-actions {
+        width: 100%;
+    }
+
+    .program-application-actions .ant-btn {
+        flex: 1;
+    }
+
+    .program-application-doc-main {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .program-application-doc-actions {
+        min-width: 0;
+        grid-template-columns: 1fr;
+    }
+
+    .program-application-ai-head {
+        flex-direction: column;
+    }
+
+    .program-application-ai-actions .ant-btn {
+        width: 100%;
+    }
+
+    .program-application-chat-list {
+        max-height: 360px;
+    }
+
+    .program-application-chat-bubble {
+        max-width: 88%;
+    }
+}
+
+@media (max-width: 767px) {
+    .program-application-page {
+        padding: 12px;
+        gap: 14px;
+    }
+
+    .program-application-back-top {
+        right: 20px;
+        bottom: 88px;
+    }
+
+    .program-application-header>.ant-card-body,
+    .program-application-ai-card>.ant-card-body,
+    .program-application-section-card>.ant-card-body {
+        padding: 24px;
+    }
+
+    .program-application-header-main,
+    .program-application-header-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .program-application-header-actions .ant-segmented,
+    .program-application-header-actions>.ant-btn {
+        width: 100%;
+    }
+
+    .program-application-chat-list.is-full {
+        max-height: 55dvh;
+    }
+
+    .program-application-chat-composer {
+        grid-template-columns: 1fr;
+    }
+
+    .program-application-chat-composer .ant-btn {
+        width: 100%;
+    }
+}

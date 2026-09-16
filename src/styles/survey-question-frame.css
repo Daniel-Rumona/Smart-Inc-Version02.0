@@ -1,0 +1,171 @@
+/* =========================================================
+   Survey Question Frame
+   One question at a time, shared by the builder preview and
+   the SME response page.
+   ========================================================= */
+
+.survey-frame-header {
+    padding: 20px 24px 16px;
+
+    border-bottom: 1px solid rgba(109, 93, 251, .12);
+
+    text-align: center;
+}
+
+.survey-frame-survey-title {
+    margin: 0 0 4px !important;
+}
+
+.survey-frame-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    gap: 6px 12px;
+}
+
+.survey-frame-tags {
+    margin: 0;
+}
+
+.survey-frame-tag {
+    margin-inline-end: 0 !important;
+
+    border-radius: 999px;
+}
+
+.survey-frame-progress {
+    margin-top: 12px !important;
+}
+
+.survey-frame-body {
+    min-height: 300px;
+
+    padding: 26px 30px 30px;
+
+    animation: survey-frame-fade .38s ease both;
+}
+
+@keyframes survey-frame-fade {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.survey-frame-position {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-bottom: 22px;
+}
+
+.survey-frame-number {
+    color: rgba(100, 116, 139, .5);
+
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1;
+
+    letter-spacing: -.04em;
+}
+
+.survey-frame-section {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: rgba(100, 116, 139, .95);
+
+    font-size: 12px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+.survey-frame-question {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    margin-bottom: 18px;
+}
+
+.survey-frame-title {
+    margin: 0 !important;
+
+    font-size: 21px !important;
+}
+
+.survey-frame-required {
+    color: #dc2626;
+
+    font-size: 19px;
+}
+
+.survey-frame-info {
+    color: rgba(100, 116, 139, .8);
+
+    cursor: help;
+}
+
+.survey-frame-control {
+    max-width: 600px;
+}
+
+.survey-frame-extra {
+    margin-top: 10px;
+}
+
+.survey-frame-help {
+    margin: 10px 0 0;
+
+    color: rgba(100, 116, 139, .95);
+
+    font-size: 12px;
+}
+
+.survey-frame-footer {
+    padding: 16px 24px;
+
+    border-top: 1px solid rgba(109, 93, 251, .12);
+}
+
+html[data-theme='dark'] .survey-frame-header,
+html[data-theme='dark'] .survey-frame-footer {
+    border-color: rgba(139, 92, 246, .2);
+}
+
+html[data-theme='dark'] .survey-frame-section,
+html[data-theme='dark'] .survey-frame-help {
+    color: rgba(226, 232, 240, .62);
+}
+
+@media (max-width: 767px) {
+    .survey-frame-body {
+        min-height: 0;
+
+        padding: 20px 18px 24px;
+    }
+
+    .survey-frame-title {
+        font-size: 18px !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .survey-frame-body {
+        animation: none;
+    }
+}

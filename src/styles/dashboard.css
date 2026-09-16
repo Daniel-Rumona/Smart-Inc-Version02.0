@@ -1,0 +1,1737 @@
+/* =========================================================
+   Dashboard Page
+   ========================================================= */
+
+.dashboard-page {
+    min-height: 100%;
+    position: relative;
+}
+
+
+/* =========================================================
+   Dashboard Header
+   ========================================================= */
+
+.dashboard-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+
+    margin-bottom: 18px;
+    padding: 20px;
+
+    border: 1px solid rgba(109, 93, 251, 0.14);
+    border-radius: 18px;
+
+    background: linear-gradient(135deg,
+            rgba(109, 93, 251, 0.1),
+            rgba(22, 119, 255, 0.04));
+}
+
+.dashboard-header h2 {
+    margin: 0 !important;
+}
+
+.dashboard-header p {
+    max-width: 760px;
+
+    margin: 6px 0 0 !important;
+
+    color: rgba(15, 23, 42, 0.62);
+}
+
+html[data-theme='dark'] .dashboard-header p {
+    color: rgba(255, 255, 255, 0.62);
+}
+
+/* =========================================================
+   Dashboard Header Card
+   ========================================================= */
+
+.dashboard-header-card {
+    position: relative;
+
+    width: 100%;
+
+    margin-bottom: 12px;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(109, 93, 251, 0.28) !important;
+    border-radius: 18px !important;
+
+    background:
+        linear-gradient(135deg,
+            rgba(109, 93, 251, 0.04),
+            rgba(59, 130, 246, 0.015)),
+        #ffffff !important;
+
+    box-shadow:
+        0 5px 18px rgba(15, 23, 42, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+    transition:
+        transform 0.24s ease,
+        box-shadow 0.24s ease,
+        border-color 0.24s ease,
+        background 0.24s ease;
+}
+
+
+/* =========================================================
+   Dashboard Header Card Body
+   ========================================================= */
+
+.dashboard-header-card .ant-card-body {
+    position: relative;
+
+    z-index: 2;
+
+    padding: 13px 16px !important;
+}
+
+
+/* =========================================================
+   Dashboard Header Card Glow
+   ========================================================= */
+
+.dashboard-header-card::after {
+    content: '';
+
+    position: absolute;
+
+    top: -55px;
+    right: -45px;
+
+    width: 130px;
+    height: 130px;
+
+    pointer-events: none;
+
+    border-radius: 50%;
+
+    background: rgba(109, 93, 251, 0.08);
+
+    filter: blur(36px);
+
+    opacity: 0;
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+/* =========================================================
+   Dashboard Header Card Light Sweep
+   ========================================================= */
+
+.dashboard-header-card::before {
+    content: '';
+
+    position: absolute;
+
+    top: -150%;
+    left: -45%;
+
+    width: 34%;
+    height: 390%;
+
+    pointer-events: none;
+
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(109, 93, 251, 0.09),
+            transparent);
+
+    transform: rotate(18deg);
+
+    transition: left 0.6s ease;
+}
+
+
+/* =========================================================
+   Dashboard Header Card Hover
+   ========================================================= */
+
+.dashboard-header-card:hover {
+    transform: translateY(-2px);
+
+    border-color: rgba(109, 93, 251, 0.55) !important;
+
+    background:
+        linear-gradient(135deg,
+            rgba(109, 93, 251, 0.075),
+            rgba(59, 130, 246, 0.025)),
+        #ffffff !important;
+
+    box-shadow:
+        0 0 0 1px rgba(109, 93, 251, 0.06),
+        0 12px 30px rgba(109, 93, 251, 0.1),
+        0 4px 12px rgba(15, 23, 42, 0.04) !important;
+}
+
+.dashboard-header-card:hover::before {
+    left: 120%;
+}
+
+.dashboard-header-card:hover::after {
+    opacity: 1;
+
+    transform: scale(1.12);
+}
+
+
+/* =========================================================
+   Dashboard Header Card Content
+   ========================================================= */
+
+.dashboard-header-card-content {
+    width: 100%;
+    min-width: 0;
+}
+
+.dashboard-header-card-copy {
+    width: 100%;
+    min-width: 0;
+}
+
+
+/* =========================================================
+   Dashboard Header Card Title Row
+   ========================================================= */
+
+.dashboard-header-card-title-row {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    min-width: 0;
+
+    gap: 16px;
+}
+
+
+/* =========================================================
+   Dashboard Header Card Title
+   ========================================================= */
+
+.dashboard-header-card-title {
+    min-width: 0;
+
+    margin: 0 !important;
+
+    font-size: 19px !important;
+    font-weight: 700 !important;
+    line-height: 1.25 !important;
+
+    letter-spacing: -0.25px;
+}
+
+
+/* =========================================================
+   Dashboard Header Card Subtitle
+   ========================================================= */
+
+.dashboard-header-card-subtitle {
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+
+/* =========================================================
+   Dashboard Header Card Extra Content
+   ========================================================= */
+
+.dashboard-header-card-extra {
+    display: flex;
+
+    align-items: center;
+    justify-content: flex-end;
+
+    flex: 0 0 auto;
+
+    gap: 6px;
+
+    min-width: 0;
+}
+
+
+/* Keep common Ant Design groups compact */
+.dashboard-header-card-extra .ant-space {
+    gap: 6px !important;
+}
+
+
+/* =========================================================
+   Dashboard Header Card Tags
+   ========================================================= */
+
+.dashboard-header-card-extra .ant-tag {
+    display: inline-flex;
+
+    align-items: center;
+
+    min-height: 24px;
+
+    margin-inline-end: 0;
+
+    padding-inline: 8px;
+
+    border-radius: 999px;
+
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 22px;
+}
+
+
+/* =========================================================
+   Dashboard Header Card Buttons
+   ========================================================= */
+
+.dashboard-header-card-extra .ant-btn {
+    min-height: 30px;
+
+    padding-inline: 12px;
+}
+
+
+/* =========================================================
+   Dashboard Header Card Dark Mode
+   ========================================================= */
+
+html[data-theme='dark'] .dashboard-header-card {
+    border-color: rgba(139, 92, 246, 0.3) !important;
+
+    background:
+        linear-gradient(135deg,
+            rgba(139, 92, 246, 0.075),
+            rgba(59, 130, 246, 0.025)),
+        rgba(23, 25, 35, 0.96) !important;
+
+    box-shadow:
+        0 7px 22px rgba(0, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+html[data-theme='dark'] .dashboard-header-card:hover {
+    border-color: rgba(167, 139, 250, 0.62) !important;
+
+    background:
+        linear-gradient(135deg,
+            rgba(139, 92, 246, 0.13),
+            rgba(59, 130, 246, 0.045)),
+        rgba(23, 25, 35, 0.98) !important;
+
+    box-shadow:
+        0 0 0 1px rgba(139, 92, 246, 0.08),
+        0 15px 34px rgba(0, 0, 0, 0.24),
+        0 0 22px rgba(139, 92, 246, 0.07) !important;
+}
+
+html[data-theme='dark'] .dashboard-header-card::before {
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(167, 139, 250, 0.11),
+            transparent);
+}
+
+
+/* =========================================================
+   Dashboard Header Card Mobile
+   ========================================================= */
+
+@media (max-width: 767px) {
+    .dashboard-header-card .ant-card-body {
+        padding: 11px 12px !important;
+    }
+
+    .dashboard-header-card-title-row {
+        align-items: flex-start;
+
+        gap: 8px;
+    }
+
+    .dashboard-header-card-title {
+        font-size: 16px !important;
+    }
+
+    .dashboard-header-card-subtitle {
+        margin-top: 2px;
+
+        font-size: 11px;
+    }
+
+    .dashboard-header-card-extra {
+        flex-wrap: wrap;
+
+        gap: 4px;
+    }
+
+    .dashboard-header-card-extra .ant-tag {
+        min-height: 22px;
+
+        padding-inline: 7px;
+
+        font-size: 10px;
+        line-height: 20px;
+    }
+
+    .dashboard-header-card:hover {
+        transform: translateY(-1px);
+    }
+}
+
+
+/* =========================================================
+   Dashboard Header Card Small Mobile
+   ========================================================= */
+
+@media (max-width: 520px) {
+    .dashboard-header-card-title-row {
+        flex-wrap: wrap;
+    }
+
+    .dashboard-header-card-extra {
+        justify-content: flex-start;
+
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   Dashboard Header Card Reduced Motion
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .dashboard-header-card,
+    .dashboard-header-card::before,
+    .dashboard-header-card::after {
+        transition: none;
+    }
+
+    .dashboard-header-card:hover {
+        transform: none;
+    }
+}
+
+/* =========================================================
+   Dashboard Metrics
+   ========================================================= */
+
+.dashboard-metrics-row {
+    margin-bottom: 22px;
+}
+
+
+/* =========================================================
+   Metrics Grid
+   Cards stay inline, shrinking to fit, and only wrap once
+   there are enough of them (~6+) to no longer fit one row.
+   ========================================================= */
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.metrics-grid > * {
+    min-width: 0;
+}
+
+
+/* =========================================================
+   Dashboard Metric Card
+   Pill shaped, matching the agent workspace metrics
+   ========================================================= */
+
+.dashboard-metric-card {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    min-height: 62px;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(109, 93, 251, 0.14) !important;
+    border-radius: 14px !important;
+
+    background: rgba(255, 255, 255, 0.9) !important;
+
+    box-shadow: 0 8px 22px rgba(22, 31, 54, 0.045);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+
+/* =========================================================
+   Metric Card Light Sweep
+   ========================================================= */
+
+.dashboard-metric-card::before {
+    content: '';
+
+    position: absolute;
+
+    top: -140%;
+    left: -50%;
+
+    width: 36%;
+    height: 360%;
+
+    pointer-events: none;
+
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(109, 93, 251, 0.1),
+            transparent);
+
+    transform: rotate(18deg);
+
+    transition: left 0.55s ease;
+}
+
+
+/* =========================================================
+   Metric Card Hover
+   ========================================================= */
+
+.dashboard-metric-card:hover {
+    transform: translateY(-1px);
+
+    border-color: rgba(109, 93, 251, 0.34) !important;
+
+    box-shadow: 0 10px 25px rgba(69, 55, 150, 0.1) !important;
+}
+
+.dashboard-metric-card:hover::before {
+    left: 120%;
+}
+
+.dashboard-metric-card.is-clickable {
+    cursor: pointer;
+}
+
+.dashboard-metric-card.is-clickable:hover {
+    border-color: rgba(109, 93, 251, 0.48) !important;
+}
+
+.dashboard-metric-card:not(.is-clickable) {
+    cursor: default;
+}
+
+
+/* =========================================================
+   Metric Card Body
+   ========================================================= */
+
+.dashboard-metric-card .ant-card-body {
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+
+    height: 100%;
+
+    padding: 9px 16px !important;
+}
+
+
+/* =========================================================
+   Metric Row
+   ========================================================= */
+
+.dashboard-metric-row {
+    display: flex !important;
+    align-items: center !important;
+
+    width: 100%;
+    min-width: 0;
+
+    gap: 11px;
+}
+
+
+/* =========================================================
+   Metric Copy
+   Label above the count
+   ========================================================= */
+
+.dashboard-metric-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    flex: 1;
+    min-width: 0;
+
+    gap: 2px;
+}
+
+
+/* =========================================================
+   Metric Label
+   ========================================================= */
+
+.dashboard-metric-label {
+    display: block !important;
+
+    max-width: 100%;
+    min-width: 0;
+
+    margin: 0 !important;
+
+    overflow: hidden;
+
+    color: #69748a !important;
+
+    white-space: nowrap !important;
+    text-overflow: ellipsis;
+
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+}
+
+
+/* =========================================================
+   Metric Value
+   ========================================================= */
+
+.dashboard-metric-value {
+    display: inline-flex;
+
+    align-items: baseline;
+
+    max-width: 100%;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    overflow: hidden;
+
+    color: #172033;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    font-size: 21px;
+    font-weight: 750;
+    line-height: 1.05;
+
+    letter-spacing: -0.4px;
+}
+
+.dashboard-metric-count {
+    display: inline-block;
+
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* =========================================================
+   Metric Icon
+   ========================================================= */
+
+.dashboard-metric-icon {
+    position: relative;
+
+    display: inline-flex !important;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+
+    min-width: 34px;
+
+    margin: 0 !important;
+
+    border-radius: 50%;
+
+    background: rgba(109, 93, 251, 0.1);
+
+    color: #6d5dfb;
+
+    font-size: 15px;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+
+/* =========================================================
+   Metric Icon Hover
+   ========================================================= */
+
+.dashboard-metric-card:hover .dashboard-metric-icon {
+    transform: scale(1.05);
+}
+
+
+/* =========================================================
+   Metric Arrow
+   Rendered only for clickable metrics
+   ========================================================= */
+
+.dashboard-metric-arrow {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 auto;
+
+    width: 26px;
+    height: 26px;
+
+    border-radius: 50%;
+
+    background: rgba(109, 93, 251, 0.08);
+
+    color: #6d5dfb;
+
+    font-size: 12px;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.dashboard-metric-card:hover .dashboard-metric-arrow {
+    transform: translateX(2px);
+
+    background: rgba(109, 93, 251, 0.16);
+}
+
+
+/* =========================================================
+   Metric Hint
+   Kept for assistive text only, surfaced on hover
+   ========================================================= */
+
+.dashboard-metric-hint {
+    display: none;
+}
+
+
+/* =========================================================
+   Metric Loading Skeleton
+   ========================================================= */
+
+.dashboard-metric-card.is-loading {
+    cursor: default;
+}
+
+.dashboard-metric-card.is-loading:hover {
+    transform: none;
+
+    border-color: rgba(109, 93, 251, 0.14) !important;
+
+    box-shadow: 0 8px 22px rgba(22, 31, 54, 0.045) !important;
+}
+
+.dashboard-metric-card.is-loading:hover::before {
+    left: -50%;
+}
+
+.dashboard-metric-card.is-loading .ant-skeleton-avatar {
+    width: 34px !important;
+    height: 34px !important;
+
+    min-width: 34px;
+}
+
+.dashboard-metric-card.is-loading .ant-skeleton {
+    width: auto;
+
+    line-height: 1;
+}
+
+.dashboard-metric-card.is-loading .ant-skeleton-input {
+    min-width: 0 !important;
+
+    border-radius: 999px !important;
+}
+
+.dashboard-metric-skeleton-label .ant-skeleton-input {
+    width: 108px !important;
+    height: 10px !important;
+}
+
+.dashboard-metric-skeleton-value .ant-skeleton-input {
+    width: 52px !important;
+    height: 16px !important;
+}
+
+
+/* =========================================================
+   Motion Card Title And Skeleton
+   ========================================================= */
+
+.motion-card .ant-card-head-title {
+    text-align: center;
+}
+
+.motion-card.is-loading:not(.dashboard-metric-card) .ant-card-body {
+    min-height: 96px;
+}
+
+.motion-card-skeleton .ant-skeleton-paragraph>li {
+    border-radius: 999px;
+}
+
+
+/* =========================================================
+   Project Admin Metric Icon Variants
+   ========================================================= */
+
+.project-admin-dashboard-page .dashboard-metric-icon.dashboard-icon-blue {
+    color: #2563eb;
+
+    border-color: rgba(37, 99, 235, 0.2);
+
+    background: rgba(37, 99, 235, 0.1);
+}
+
+.project-admin-dashboard-page .dashboard-metric-icon.dashboard-icon-green {
+    color: #16a34a;
+
+    border-color: rgba(22, 163, 74, 0.2);
+
+    background: rgba(22, 163, 74, 0.1);
+}
+
+.project-admin-dashboard-page .dashboard-metric-icon.dashboard-icon-orange {
+    color: #ea580c;
+
+    border-color: rgba(234, 88, 12, 0.2);
+
+    background: rgba(234, 88, 12, 0.1);
+}
+
+.project-admin-dashboard-page .dashboard-metric-icon.dashboard-icon-red {
+    color: #dc2626;
+
+    border-color: rgba(220, 38, 38, 0.2);
+
+    background: rgba(220, 38, 38, 0.1);
+}
+
+
+/* =========================================================
+   Project Admin Icon Hover Variants
+   ========================================================= */
+
+.project-admin-dashboard-page .dashboard-metric-card:hover .dashboard-metric-icon.dashboard-icon-blue {
+    border-color: rgba(37, 99, 235, 0.45);
+
+    background: rgba(37, 99, 235, 0.15);
+
+    box-shadow:
+        0 0 0 4px rgba(37, 99, 235, 0.055),
+        0 7px 18px rgba(37, 99, 235, 0.14);
+}
+
+.project-admin-dashboard-page .dashboard-metric-card:hover .dashboard-metric-icon.dashboard-icon-green {
+    border-color: rgba(22, 163, 74, 0.45);
+
+    background: rgba(22, 163, 74, 0.15);
+
+    box-shadow:
+        0 0 0 4px rgba(22, 163, 74, 0.055),
+        0 7px 18px rgba(22, 163, 74, 0.14);
+}
+
+.project-admin-dashboard-page .dashboard-metric-card:hover .dashboard-metric-icon.dashboard-icon-orange {
+    border-color: rgba(234, 88, 12, 0.45);
+
+    background: rgba(234, 88, 12, 0.15);
+
+    box-shadow:
+        0 0 0 4px rgba(234, 88, 12, 0.055),
+        0 7px 18px rgba(234, 88, 12, 0.14);
+}
+
+.project-admin-dashboard-page .dashboard-metric-card:hover .dashboard-metric-icon.dashboard-icon-red {
+    border-color: rgba(220, 38, 38, 0.45);
+
+    background: rgba(220, 38, 38, 0.15);
+
+    box-shadow:
+        0 0 0 4px rgba(220, 38, 38, 0.055),
+        0 7px 18px rgba(220, 38, 38, 0.14);
+}
+
+
+/* =========================================================
+   Dashboard Section Cards
+   ========================================================= */
+
+.dashboard-section-card {
+    width: 100%;
+    height: 100%;
+
+    border: 1px solid rgba(109, 93, 251, 0.12) !important;
+    border-radius: 18px !important;
+}
+
+
+/* =========================================================
+   Dashboard Mobile Records
+   ========================================================= */
+
+.dashboard-mobile-record {
+    width: 100%;
+}
+
+
+/* =========================================================
+   Motion Cards
+   ========================================================= */
+
+.motion-card {
+    animation: motion-card-enter 0.32s ease both;
+}
+
+@keyframes motion-card-enter {
+    from {
+        opacity: 0;
+
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   Sunken Panel
+   ========================================================= */
+
+.sunken-panel {
+    padding: 12px;
+
+    border: 1px solid rgba(109, 93, 251, 0.1);
+    border-radius: 14px;
+
+    background: rgba(248, 250, 252, 0.82);
+
+    box-shadow: inset 0 2px 8px rgba(15, 23, 42, 0.055);
+}
+
+html[data-theme='dark'] .sunken-panel {
+    background: rgba(15, 17, 23, 0.72);
+}
+
+
+/* =========================================================
+   Filter Bar
+   ========================================================= */
+
+.filter-bar {
+    margin-bottom: 16px;
+
+    border: 1px solid rgba(109, 93, 251, 0.12) !important;
+    border-radius: 18px !important;
+}
+
+.filter-bar .ant-card-body {
+    padding: 10px;
+}
+
+.filter-bar-heading {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 10px;
+}
+
+.filter-bar-actions {
+    flex-wrap: wrap;
+
+    justify-content: flex-end;
+}
+
+.filter-bar-primary {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.filter-bar-controls {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 10px;
+    width: 100%;
+}
+
+.filter-bar-controls > * {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+/* Segmented controls and buttons size to their labels; only inputs earn the spare width. */
+.filter-bar-controls > .ant-segmented,
+.filter-bar-controls > .ant-btn {
+    flex: 0 0 auto;
+}
+
+/* A compact FilterBar's inline mobile rendering (see the `compact` prop):
+   nothing worth a horizontal squeeze, so every control gets its own row. */
+@media (max-width: 767px) {
+    .filter-bar-primary.is-stacked .filter-bar-controls {
+        flex-wrap: wrap;
+        row-gap: 8px;
+    }
+
+    .filter-bar-primary.is-stacked .filter-bar-controls > * {
+        flex: 1 1 100%;
+    }
+}
+
+/* =========================================================
+   Intervention appointments — calendar workspace
+   ========================================================= */
+
+.apt-workspace {
+    --apt-accent: #6d5dfb;
+    --apt-status: #6d5dfb;
+    --apt-status-soft: rgba(109, 93, 251, .12);
+    --apt-shell-height: calc(100vh - 132px);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    gap: 14px;
+    align-items: start;
+}
+
+/* One status palette drives chips, time-grid events, panel rails, the legend and the detail modal. */
+.apt-workspace .is-pending, .apt-detail.is-pending { --apt-status: #d99b18; --apt-status-soft: rgba(217, 155, 24, .14); }
+.apt-workspace .is-accepted, .apt-detail.is-accepted { --apt-status: #3b82f6; --apt-status-soft: rgba(59, 130, 246, .14); }
+.apt-workspace .is-completed, .apt-detail.is-completed { --apt-status: #16a34a; --apt-status-soft: rgba(22, 163, 74, .14); }
+.apt-workspace .is-declined, .apt-detail.is-declined,
+.apt-workspace .is-cancelled, .apt-detail.is-cancelled { --apt-status: #dc2626; --apt-status-soft: rgba(220, 38, 38, .13); }
+
+.apt-calendar-card,
+.apt-panel-card { height: var(--apt-shell-height); overflow: hidden; }
+.apt-panel-card { position: sticky; top: 16px; }
+.apt-calendar-card > .ant-card-body,
+.apt-panel-card > .ant-card-body { display: flex; flex-direction: column; height: 100%; min-height: 0; }
+
+/* ---------------------------------------------------------------- toolbar */
+
+.apt-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px 14px; padding: 14px 16px 10px; }
+.apt-toolbar-title { flex: 1 1 240px; min-width: 0; }
+.apt-toolbar-title h3 { margin: 0 !important; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.apt-toolbar-title .ant-typography { font-size: 12px; }
+.apt-toolbar-controls { display: flex; flex: 0 0 auto; align-items: center; gap: 8px; }
+.apt-toolbar-controls .ant-input-affix-wrapper { width: 150px; }
+
+.apt-legend { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 14px; padding: 0 16px 12px; border-bottom: 1px solid var(--ant-color-border-secondary); }
+.apt-legend-item { display: inline-flex; align-items: center; gap: 6px; color: var(--ant-color-text-secondary); font-size: 11px; }
+.apt-legend-item i { width: 8px; height: 8px; border-radius: 999px; background: var(--apt-status); }
+.apt-legend-sample { margin-left: auto; padding: 2px 9px; border-radius: 999px; background: rgba(109, 93, 251, .12); color: var(--apt-accent); font-size: 11px; font-weight: 600; cursor: help; }
+
+.apt-calendar-body { display: flex; flex: 1; flex-direction: column; min-height: 0; padding: 12px 16px 16px; }
+
+/* ------------------------------------------------------------ month view */
+
+.apt-month { display: flex; flex: 1; flex-direction: column; min-height: 0; }
+.apt-month-weekdays { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; padding-bottom: 8px; color: var(--ant-color-text-secondary); font-size: 11px; font-weight: 600; letter-spacing: .04em; text-align: center; text-transform: uppercase; }
+.apt-month-grid { display: grid; flex: 1; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; min-height: 0; overflow: auto; }
+
+.apt-month-cell { display: flex; flex-direction: column; min-height: 0; padding: 6px; overflow: hidden; border: 1px solid var(--ant-color-border-secondary); border-radius: 12px; background: var(--ant-color-bg-container); cursor: pointer; transition: border-color .15s ease, box-shadow .15s ease, background .15s ease; }
+.apt-month-cell:hover { border-color: rgba(109, 93, 251, .45); }
+.apt-month-cell.is-outside { opacity: .42; }
+.apt-month-cell.is-today .apt-month-date { color: #fff; background: var(--apt-accent); }
+.apt-month-cell.is-selected { border-color: var(--apt-accent); background: rgba(109, 93, 251, .06); box-shadow: 0 0 0 2px rgba(109, 93, 251, .16); }
+
+.apt-month-cell-head { display: flex; align-items: center; justify-content: space-between; gap: 4px; height: 20px; margin-bottom: 4px; }
+.apt-month-date { display: grid; width: 20px; height: 20px; padding: 0; place-items: center; border: 0; border-radius: 999px; color: inherit; background: transparent; font-size: 11px; font-weight: 700; cursor: pointer; }
+.apt-month-count { padding: 1px 6px; border-radius: 999px; background: var(--ant-color-border-secondary); color: var(--ant-color-text-secondary); font-size: 10px; font-weight: 700; }
+
+.apt-month-chips { display: flex; flex: 1; flex-direction: column; gap: 2px; min-height: 0; overflow: hidden; }
+.apt-chip { display: flex; flex: 0 0 auto; align-items: center; gap: 5px; width: 100%; height: 20px; padding: 0 6px; overflow: hidden; border: 0; border-radius: 5px; color: inherit; background: var(--apt-status-soft); font-size: 11px; line-height: 1; text-align: left; cursor: pointer; }
+.apt-chip:hover { filter: brightness(.97); }
+.apt-chip.is-selected { box-shadow: inset 0 0 0 1.5px var(--apt-status); }
+.apt-chip-dot { flex: 0 0 auto; width: 5px; height: 5px; border-radius: 999px; background: var(--apt-status); }
+.apt-chip-time { flex: 0 0 auto; opacity: .72; font-variant-numeric: tabular-nums; }
+.apt-chip-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.apt-month-more { flex: 0 0 auto; margin-top: 2px; padding: 0 6px; border: 0; border-radius: 5px; color: var(--apt-accent); background: transparent; font-size: 11px; font-weight: 600; text-align: left; cursor: pointer; }
+.apt-month-more:hover { background: rgba(109, 93, 251, .1); }
+
+/* -------------------------------------------------------- day/week grids */
+
+.apt-timegrid { display: flex; flex: 1; flex-direction: column; min-height: 0; }
+.apt-timegrid-head { display: grid; gap: 0; padding-bottom: 8px; }
+.apt-timegrid-corner { display: block; }
+.apt-timegrid-day { display: flex; flex-direction: column; align-items: center; gap: 1px; padding: 6px 2px; border: 1px solid transparent; border-radius: 10px; color: inherit; background: transparent; cursor: pointer; }
+.apt-timegrid-day:hover { background: rgba(109, 93, 251, .07); }
+.apt-timegrid-day.is-selected { border-color: var(--apt-accent); background: rgba(109, 93, 251, .08); }
+.apt-timegrid-day-name { color: var(--ant-color-text-secondary); font-size: 10px; letter-spacing: .04em; text-transform: uppercase; }
+.apt-timegrid-day-date { font-size: 15px; font-weight: 700; line-height: 1.2; }
+.apt-timegrid-day.is-today .apt-timegrid-day-date { display: grid; width: 24px; height: 24px; place-items: center; border-radius: 999px; color: #fff; background: var(--apt-accent); }
+.apt-timegrid-day-count { padding: 0 6px; border-radius: 999px; background: var(--ant-color-border-secondary); color: var(--ant-color-text-secondary); font-size: 10px; font-weight: 700; }
+
+.apt-timegrid-body { flex: 1; min-height: 0; overflow: auto; }
+.apt-timegrid-canvas { display: grid; position: relative; }
+.apt-timegrid-gutter { position: relative; }
+.apt-timegrid-gutter span { display: block; padding: 2px 8px 0 0; color: var(--ant-color-text-secondary); font-size: 11px; font-variant-numeric: tabular-nums; text-align: right; }
+.apt-timegrid-col { position: relative; border-left: 1px solid var(--ant-color-border-secondary); }
+.apt-timegrid-col.is-today { background: rgba(109, 93, 251, .035); }
+.apt-timegrid-line { border-top: 1px solid var(--ant-color-border-secondary); }
+.apt-timegrid-now { position: absolute; z-index: 4; left: 0; right: 0; border-top: 2px solid #ef4444; }
+.apt-timegrid-now span { position: absolute; top: -5px; left: -4px; width: 8px; height: 8px; border-radius: 999px; background: #ef4444; }
+
+.apt-event { display: flex; position: absolute; z-index: 2; flex-direction: column; gap: 1px; padding: 3px 6px; overflow: hidden; border: 0; border-right: 3px solid transparent; border-left: 3px solid var(--apt-status); border-radius: 6px; color: inherit; background: var(--apt-status-soft); background-clip: padding-box; font-size: 11px; line-height: 1.25; text-align: left; cursor: pointer; }
+.apt-event:hover { z-index: 5; box-shadow: 0 4px 12px rgba(15, 17, 23, .16); }
+.apt-event.is-selected { z-index: 5; box-shadow: 0 0 0 2px var(--apt-status); }
+.apt-event.is-compact { flex-direction: row; align-items: center; gap: 5px; }
+.apt-event-title { overflow: hidden; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+.apt-event-meta { overflow: hidden; opacity: .75; text-overflow: ellipsis; white-space: nowrap; }
+.apt-event-overflow { align-items: center; justify-content: center; border-left-color: var(--ant-color-text-secondary); background: var(--ant-color-border-secondary); font-weight: 700; }
+
+/* ----------------------------------------------------------- agenda view */
+
+.apt-agenda { display: flex; flex: 1; flex-direction: column; gap: 16px; min-height: 0; overflow: auto; }
+.apt-agenda-section { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; }
+.apt-agenda-header { display: contents; }
+.apt-agenda-date { display: grid; align-content: start; justify-items: center; padding: 6px 0; border-radius: 12px; background: var(--ant-color-border-secondary); }
+.apt-agenda-date strong { font-size: 18px; line-height: 1.1; }
+.apt-agenda-date span { color: var(--ant-color-text-secondary); font-size: 10px; text-transform: uppercase; }
+.apt-agenda-section.is-today .apt-agenda-date { color: #fff; background: var(--apt-accent); }
+.apt-agenda-section.is-today .apt-agenda-date span { color: rgba(255, 255, 255, .8); }
+.apt-agenda-heading { display: flex; align-items: baseline; gap: 10px; }
+.apt-agenda-weekday { font-weight: 700; }
+.apt-agenda-count { color: var(--ant-color-text-secondary); font-size: 12px; }
+.apt-agenda-rows { display: grid; grid-column: 2; gap: 6px; }
+.apt-agenda-row { display: grid; grid-template-columns: 96px minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 9px 12px; border: 1px solid var(--ant-color-border-secondary); border-left: 3px solid var(--apt-status); border-radius: 10px; color: inherit; background: var(--ant-color-bg-container); text-align: left; cursor: pointer; }
+.apt-agenda-row:hover { border-color: var(--apt-status); }
+.apt-agenda-row.is-selected { background: var(--apt-status-soft); box-shadow: 0 0 0 2px var(--apt-status); }
+.apt-agenda-time { color: var(--ant-color-text-secondary); font-size: 12px; font-variant-numeric: tabular-nums; }
+.apt-agenda-body { display: grid; gap: 1px; min-width: 0; }
+.apt-agenda-body strong,
+.apt-agenda-body small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.apt-agenda-body small { color: var(--ant-color-text-secondary); }
+.apt-agenda-type { color: var(--apt-status); }
+
+/* ------------------------------------------------------------- day panel */
+
+.apt-panel { display: flex; flex-direction: column; gap: 12px; height: 100%; min-height: 0; padding: 16px; }
+.apt-panel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.apt-panel-head h4 { margin: 2px 0 0 !important; }
+.apt-panel-head .ant-typography { display: block; font-size: 12px; }
+.apt-panel-filter { flex: 0 0 auto; }
+.apt-panel-filter .ant-segmented-item-label { padding: 0 6px; font-size: 11px; }
+.apt-panel-list { display: flex; flex: 1; flex-direction: column; gap: 12px; min-height: 0; overflow: auto; }
+.apt-panel-group { display: grid; gap: 6px; }
+.apt-panel-group-title { display: flex; position: sticky; z-index: 2; top: 0; align-items: center; justify-content: space-between; margin: 0; padding: 4px 0; background: var(--ant-color-bg-container); color: var(--ant-color-text-secondary); font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.apt-panel-group-title span { padding: 0 6px; border-radius: 999px; background: var(--ant-color-border-secondary); }
+.apt-panel-item { display: grid; grid-template-columns: 3px minmax(0, 1fr); gap: 10px; padding: 0; overflow: hidden; border: 1px solid var(--ant-color-border-secondary); border-radius: 10px; color: inherit; background: transparent; text-align: left; cursor: pointer; transition: border-color .15s ease, background .15s ease; }
+.apt-panel-item:hover { border-color: var(--apt-status); }
+.apt-panel-item.is-selected { border-color: var(--apt-status); background: var(--apt-status-soft); }
+.apt-panel-item-rail { background: var(--apt-status); }
+.apt-panel-item-body { display: grid; gap: 1px; min-width: 0; padding: 8px 10px 8px 0; }
+.apt-panel-item-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 12px; font-variant-numeric: tabular-nums; }
+.apt-panel-item-type { color: var(--apt-status); }
+.apt-panel-item-title { overflow: hidden; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+.apt-panel-item small { overflow: hidden; color: var(--ant-color-text-secondary); text-overflow: ellipsis; white-space: nowrap; }
+
+/* --------------------------------------------------- detail modal --- */
+
+.apt-detail { display: grid; gap: 14px; --apt-accent: #6d5dfb; --apt-status: #6d5dfb; --apt-status-soft: rgba(109, 93, 251, .12); }
+.apt-detail-head { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 12px; }
+.apt-detail-head h3 { margin: 0; overflow: hidden; font-size: 17px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+.apt-detail-icon { display: grid; width: 40px; height: 40px; place-items: center; border-radius: 12px; color: var(--apt-status); background: var(--apt-status-soft); font-size: 18px; }
+.apt-detail-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0; }
+.apt-detail-meta > div { display: grid; gap: 4px; padding: 10px 12px; border: 1px solid var(--ant-color-border-secondary); border-radius: 12px; }
+.apt-detail-meta dt { display: flex; align-items: center; gap: 7px; color: var(--ant-color-text-secondary); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; }
+.apt-detail-meta dd { margin: 0; font-size: 13px; font-weight: 600; }
+.apt-detail-link { display: inline-flex; align-items: center; gap: 7px; justify-self: start; padding: 8px 14px; border-radius: 999px; background: var(--apt-status-soft); font-size: 13px; font-weight: 600; }
+.apt-detail-location { display: flex; align-items: flex-start; gap: 8px; margin: 0; font-size: 13px; }
+.apt-detail-note { display: flex; align-items: flex-start; gap: 8px; margin: 0; padding: 12px; border-radius: 12px; background: var(--apt-status-soft); color: var(--ant-color-text-secondary); font-size: 12px; }
+
+html[data-theme='dark'] .apt-month-count,
+html[data-theme='dark'] .apt-timegrid-day-count,
+html[data-theme='dark'] .apt-panel-group-title span { background: rgba(255, 255, 255, .1); }
+
+@media (max-width: 1279px) {
+    .apt-workspace { grid-template-columns: minmax(0, 1fr); }
+    .apt-calendar-card { height: auto; min-height: 520px; }
+    .apt-calendar-card > .ant-card-body { height: 640px; }
+    .apt-panel-card { position: static; height: auto; max-height: none; }
+}
+
+@media (max-width: 767px) {
+    .apt-toolbar { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+    .apt-toolbar-actions { flex-wrap: wrap; }
+    .apt-toolbar-actions .ant-input-affix-wrapper { flex: 1 1 140px; width: auto; }
+    .apt-toolbar-actions .ant-segmented { width: 100%; }
+    .apt-calendar-card > .ant-card-body { height: 560px; }
+    .apt-month-grid { gap: 4px; }
+    .apt-month-cell { padding: 4px; border-radius: 9px; }
+    .apt-chip-time { display: none; }
+    .apt-agenda-section { grid-template-columns: 48px minmax(0, 1fr); }
+    .apt-agenda-row { grid-template-columns: 84px minmax(0, 1fr) auto; gap: 8px; }
+    .apt-detail-meta { grid-template-columns: 1fr; }
+}
+
+.ant-modal .ant-modal-header { text-align: center; }
+.ant-modal .ant-modal-close { top: 12px; right: 12px; width: 32px; height: 32px; border: 1px solid #dc2626; border-radius: 50%; color: #dc2626; }
+.ant-modal .ant-modal-close:hover { color: #fff; background: #dc2626; }
+.appointment-modal-guide { margin: -4px auto 18px; max-width: 560px; padding: 14px 18px; border: 1px solid rgba(109,93,251,.2); border-radius: 16px; background: rgba(109,93,251,.07); text-align: center; }
+.appointment-modal-guide .ant-typography { display: block; margin-bottom: 4px; }
+.appointment-typing-cursor { display: inline-block; width: 2px; height: 1em; margin-left: 2px; vertical-align: -2px; background: currentColor; animation: appointment-cursor-blink .8s steps(1) infinite; }
+.appointment-modal-reveal { animation: appointment-modal-reveal .4s ease-out both; }
+@keyframes appointment-modal-reveal { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes appointment-cursor-blink { 50% { opacity: 0; } }
+.appointment-outcome-context { display: grid; gap: 2px; margin: 0 auto 18px; padding: 10px 14px; border: 1px solid var(--ant-color-border-secondary); border-radius: 12px; text-align: center; }
+.appointment-outcome-actions { display: flex; justify-content: flex-end; width: 100%; margin-top: 16px; }
+
+
+/* =========================================================
+   Filter Modal
+   ========================================================= */
+
+.filter-modal-grid {
+    display: grid;
+
+    gap: 12px;
+
+    padding-top: 4px;
+}
+
+
+/* =========================================================
+   Responsive List
+   ========================================================= */
+
+.responsive-list-item {
+    padding: 0 0 10px !important;
+
+    border: 0 !important;
+}
+
+.responsive-list-card {
+    width: 100%;
+
+    min-height: 138px;
+
+    border: 1px solid rgba(109, 93, 251, 0.12) !important;
+    border-radius: 16px !important;
+}
+
+
+/* =========================================================
+   Responsive Table
+   ========================================================= */
+
+.responsive-table-card {
+    height: auto;
+}
+
+.responsive-table-field {
+    display: grid;
+
+    gap: 2px;
+}
+
+
+/* =========================================================
+   Dark Mode Metric Cards
+   ========================================================= */
+
+html[data-theme='dark'] .dashboard-metric-card {
+    border-color: rgba(139, 92, 246, 0.18) !important;
+
+    background: rgba(23, 25, 35, 0.86) !important;
+
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+html[data-theme='dark'] .dashboard-metric-card:hover {
+    border-color: rgba(167, 139, 250, 0.42) !important;
+
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28) !important;
+}
+
+html[data-theme='dark'] .dashboard-metric-card::before {
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(167, 139, 250, 0.13),
+            transparent);
+}
+
+html[data-theme='dark'] .dashboard-metric-label {
+    color: rgba(226, 232, 240, 0.64) !important;
+}
+
+html[data-theme='dark'] .dashboard-metric-value {
+    color: #edf1f8;
+}
+
+html[data-theme='dark'] .dashboard-metric-icon {
+    background: rgba(139, 92, 246, 0.16);
+
+    color: #a78bfa;
+}
+
+html[data-theme='dark'] .dashboard-metric-arrow {
+    background: rgba(139, 92, 246, 0.14);
+
+    color: #a78bfa;
+}
+
+html[data-theme='dark'] .dashboard-metric-card:hover .dashboard-metric-arrow {
+    background: rgba(139, 92, 246, 0.24);
+}
+
+
+/* =========================================================
+   Mobile Dashboard
+   ========================================================= */
+
+@media (max-width: 767px) {
+    .dashboard-home-page .dashboard-header {
+        display: none;
+    }
+
+    .operations-dashboard-page .ant-list-item,
+    .operations-dashboard-page .ant-list-item>* {
+        width: 100%;
+    }
+
+    .dashboard-metrics-row>div:nth-child(n + 3),
+    .operations-participants-metrics>div:nth-child(n + 3),
+    .operations-compliance-metrics>div:nth-child(n + 3),
+    .usage-analytics-metrics>div:nth-child(n + 3) {
+        display: none;
+    }
+
+    /* Always 2 metrics per row on mobile, never stacked full-width. */
+    .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    /* =====================================================
+       Mobile Metric Cards
+       ===================================================== */
+
+    .dashboard-metric-card {
+        min-height: 54px;
+
+        border-radius: 12px !important;
+    }
+
+    .dashboard-metric-card .ant-card-body {
+        padding: 8px 12px !important;
+    }
+
+    .dashboard-metric-row {
+        gap: 8px;
+    }
+
+    .dashboard-metric-copy {
+        gap: 1px;
+    }
+
+    .dashboard-metric-icon {
+        width: 30px;
+        height: 30px;
+
+        min-width: 30px;
+
+        font-size: 14px;
+    }
+
+    .dashboard-metric-arrow {
+        width: 22px;
+        height: 22px;
+
+        font-size: 11px;
+    }
+
+    .dashboard-metric-label {
+        font-size: 11px !important;
+    }
+
+    .dashboard-metric-value {
+        font-size: 18px;
+    }
+
+    .dashboard-metric-card:hover {
+        transform: none;
+    }
+
+
+    /* =====================================================
+       Mobile Filter Bar
+       ===================================================== */
+
+    .filter-bar-heading {
+        align-items: flex-start;
+    }
+
+    .filter-bar-actions {
+        max-width: 100%;
+
+        row-gap: 6px !important;
+    }
+
+    .filter-bar-actions .ant-btn:has(.anticon)>span:not(.anticon) {
+        display: none;
+    }
+
+    .filter-bar-actions .ant-segmented {
+        max-width: 100%;
+    }
+}
+
+
+/* =========================================================
+   Loading Overlay
+   ========================================================= */
+
+.loading-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 2000;
+
+    display: grid;
+
+    place-items: center;
+
+    padding: 20px;
+
+    cursor: wait;
+
+    background: rgba(245, 247, 251, 0.48);
+
+    backdrop-filter: blur(12px) saturate(0.86);
+    -webkit-backdrop-filter: blur(12px) saturate(0.86);
+}
+
+
+/* =========================================================
+   Loading Overlay Card
+   ========================================================= */
+
+.loading-overlay-card {
+    width: min(290px,
+            calc(100vw - 40px));
+
+    padding: 22px 24px 20px;
+
+    overflow: hidden;
+
+    text-align: center;
+
+    border: 1px solid rgba(109, 93, 251, 0.16);
+    border-radius: 24px;
+
+    background: rgba(255, 255, 255, 0.88);
+
+    box-shadow: 0 22px 60px rgba(15, 23, 42, 0.16);
+}
+
+
+/* =========================================================
+   Loading Incubator
+   ========================================================= */
+
+.loading-incubator {
+    width: 142px;
+    height: 142px;
+}
+
+.loading-incubator-orbit {
+    fill: none;
+
+    stroke: rgba(109, 93, 251, 0.2);
+
+    stroke-dasharray: 4 8;
+
+    stroke-width: 2;
+}
+
+.loading-incubator-orbit-dot {
+    fill: #8b5cf6;
+
+    transform-origin: 80px 80px;
+
+    animation: loading-incubator-orbit 2.7s linear infinite;
+}
+
+.loading-incubator-dome {
+    fill: rgba(109, 93, 251, 0.045);
+
+    stroke: url(#loading-dome-gradient);
+
+    stroke-linecap: round;
+
+    stroke-width: 4;
+}
+
+.loading-incubator-ground {
+    fill: none;
+
+    stroke: #6d5dfb;
+
+    stroke-linecap: round;
+
+    stroke-width: 5;
+}
+
+.loading-incubator-stem {
+    fill: none;
+
+    stroke: #16a34a;
+
+    stroke-linecap: round;
+
+    stroke-width: 5;
+
+    animation:
+        loading-incubator-grow 1.8s ease-in-out infinite alternate;
+}
+
+.loading-incubator-leaf {
+    fill: url(#loading-leaf-gradient);
+
+    transform-box: fill-box;
+
+    transform-origin: bottom center;
+}
+
+.loading-incubator-leaf-left {
+    animation:
+        loading-incubator-leaf-left 1.8s ease-in-out infinite alternate;
+}
+
+.loading-incubator-leaf-right {
+    animation:
+        loading-incubator-leaf-right 1.8s ease-in-out infinite alternate;
+}
+
+.loading-incubator-seed {
+    fill: #a78bfa;
+
+    stroke: #6d5dfb;
+
+    stroke-width: 3;
+}
+
+.loading-incubator-shine {
+    fill: none;
+
+    stroke: rgba(255, 255, 255, 0.82);
+
+    stroke-linecap: round;
+
+    stroke-width: 5;
+}
+
+
+/* =========================================================
+   Loading Overlay Copy
+   ========================================================= */
+
+.loading-overlay-copy {
+    display: grid;
+
+    gap: 4px;
+}
+
+.loading-overlay-copy strong {
+    color: #1f2937;
+
+    font-size: 15px;
+}
+
+.loading-overlay-copy span {
+    color: #6b7280;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   Loading Progress
+   ========================================================= */
+
+.loading-overlay-progress {
+    display: block;
+
+    height: 4px;
+
+    margin-top: 16px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background: rgba(109, 93, 251, 0.12);
+}
+
+.loading-overlay-progress i {
+    display: block;
+
+    width: 45%;
+    height: 100%;
+
+    border-radius: inherit;
+
+    background: linear-gradient(90deg,
+            #8b5cf6,
+            #3b82f6);
+
+    animation:
+        loading-overlay-progress 1.45s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   Loading Overlay Dark Mode
+   ========================================================= */
+
+html[data-theme='dark'] .loading-overlay {
+    background: rgba(15, 17, 23, 0.54);
+}
+
+html[data-theme='dark'] .loading-overlay-card {
+    border-color: rgba(139, 92, 246, 0.2);
+
+    background: rgba(23, 25, 35, 0.9);
+
+    box-shadow: 0 22px 60px rgba(0, 0, 0, 0.32);
+}
+
+html[data-theme='dark'] .loading-overlay-copy strong {
+    color: #f8fafc;
+}
+
+html[data-theme='dark'] .loading-overlay-copy span {
+    color: rgba(255, 255, 255, 0.62);
+}
+
+
+/* =========================================================
+   Animations
+   ========================================================= */
+
+@keyframes loading-incubator-orbit {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes loading-incubator-grow {
+    from {
+        transform: scaleY(0.9);
+    }
+
+    to {
+        transform: scaleY(1.04);
+    }
+}
+
+@keyframes loading-incubator-leaf-left {
+    from {
+        transform: rotate(4deg) scale(0.92);
+    }
+
+    to {
+        transform: rotate(-3deg) scale(1);
+    }
+}
+
+@keyframes loading-incubator-leaf-right {
+    from {
+        transform: rotate(-4deg) scale(0.92);
+    }
+
+    to {
+        transform: rotate(3deg) scale(1);
+    }
+}
+
+@keyframes loading-overlay-progress {
+    from {
+        transform: translateX(-115%);
+    }
+
+    to {
+        transform: translateX(245%);
+    }
+}
+
+
+/* =========================================================
+   Reduced Motion Accessibility
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    .motion-card {
+        animation: none;
+    }
+
+    .dashboard-metric-card,
+    .dashboard-metric-icon,
+    .dashboard-metric-arrow,
+    .dashboard-metric-card::before {
+        transition: none;
+    }
+
+    .dashboard-metric-card:hover {
+        transform: none;
+    }
+
+    .dashboard-metric-card:hover .dashboard-metric-icon,
+    .dashboard-metric-card:hover .dashboard-metric-arrow {
+        transform: none;
+    }
+
+    .loading-incubator-orbit-dot,
+    .loading-incubator-stem,
+    .loading-incubator-leaf,
+    .loading-overlay-progress i {
+        animation-duration: 5s;
+    }
+}

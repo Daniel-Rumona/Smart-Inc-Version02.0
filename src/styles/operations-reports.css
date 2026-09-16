@@ -1,0 +1,296 @@
+.operations-reports-page .filter-bar-primary {
+    align-items: center;
+}
+
+.operations-reports-page .filter-bar-primary .ant-segmented {
+    width: max-content;
+}
+
+.project-admin-reports-page .filter-bar-primary {
+    display: block;
+    width: 100%;
+}
+
+.project-admin-reports-page .project-admin-report-filter-grid {
+    display: grid;
+    grid-template-columns: minmax(420px, .9fr) minmax(300px, 1.2fr) minmax(520px, 1.1fr);
+    align-items: end;
+    gap: 12px;
+    width: 100%;
+}
+
+.project-admin-reports-page .project-admin-report-filter-control:last-child {
+    grid-column: auto;
+}
+
+.project-admin-report-filter-control {
+    display: grid;
+    min-width: 0;
+    gap: 6px;
+}
+
+.project-admin-report-filter-control > span {
+    color: rgba(15, 23, 42, .62);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.project-admin-report-filter-control .ant-segmented,
+.project-admin-report-filter-control .ant-picker {
+    width: 100%;
+}
+
+.project-admin-report-filter-control .ant-segmented {
+    overflow-x: auto;
+}
+
+.project-admin-report-filter-control .ant-segmented-group {
+    width: 100%;
+    min-width: 0;
+}
+
+.project-admin-report-filter-control .ant-segmented-item {
+    flex: 1 1 0;
+    min-width: 0;
+    text-align: center;
+}
+
+.project-admin-report-filter-control .ant-segmented-item-label {
+    overflow: visible;
+    padding-inline: 12px;
+    text-overflow: clip;
+}
+
+.project-admin-report-chart-grid {
+    margin-bottom: 20px;
+}
+
+.operations-reports-page .dashboard-section-card .ant-card-head-title {
+    min-width: 0;
+}
+
+.operations-reports-page .dashboard-section-card .ant-card-body {
+    min-height: 100%;
+}
+
+.operations-reports-metrics {
+    margin-bottom: 16px;
+}
+
+.operations-reports-page .dashboard-metric-icon.is-applications {
+    color: #2563eb;
+    background: rgba(37, 99, 235, .11);
+}
+
+.operations-reports-page .dashboard-metric-icon.is-participants {
+    color: #0891b2;
+    background: rgba(8, 145, 178, .11);
+}
+
+.operations-reports-page .dashboard-metric-icon.is-delivery {
+    color: #16a34a;
+    background: rgba(22, 163, 74, .11);
+}
+
+.operations-reports-page .dashboard-metric-icon.is-attention {
+    color: #dc2626;
+    background: rgba(220, 38, 38, .1);
+}
+
+.operations-reports-page .dashboard-metric-icon.is-users {
+    color: #7c3aed;
+    background: rgba(124, 58, 237, .11);
+}
+
+html[data-theme='dark'] .project-admin-report-filter-control > span {
+    color: rgba(255, 255, 255, .62);
+}
+
+.operations-insight-card {
+    height: 100%;
+}
+
+.operations-insight-card .ant-alert {
+    border-radius: 14px;
+}
+
+.operations-status-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(109, 93, 251, .1);
+}
+
+.operations-status-row:last-of-type {
+    border-bottom: 0;
+}
+
+.operations-overview-grid {
+    margin-bottom: 16px;
+}
+
+.operations-health-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.operations-health-tile {
+    min-height: 128px;
+    padding: 14px;
+    text-align: left;
+    border: 1px solid rgba(15, 23, 42, .08);
+    border-radius: 14px;
+    background: #fff;
+    cursor: pointer;
+    transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+}
+
+.operations-health-tile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(15, 23, 42, .08);
+}
+
+.operations-health-tile strong {
+    display: block;
+    margin: 8px 0 4px;
+    font-size: 30px;
+    line-height: 1;
+}
+
+.operations-health-tile span {
+    display: block;
+    color: rgba(15, 23, 42, .62);
+}
+
+.operations-health-tile.is-good {
+    border-color: rgba(22, 163, 74, .22);
+    background: linear-gradient(180deg, rgba(22, 163, 74, .08), rgba(255, 255, 255, .96));
+}
+
+.operations-health-tile.is-good strong {
+    color: #15803d;
+}
+
+.operations-health-tile.is-watch {
+    border-color: rgba(245, 158, 11, .28);
+    background: linear-gradient(180deg, rgba(245, 158, 11, .1), rgba(255, 255, 255, .96));
+}
+
+.operations-health-tile.is-watch strong {
+    color: #b45309;
+}
+
+.operations-health-tile.is-risk {
+    border-color: rgba(220, 38, 38, .22);
+    background: linear-gradient(180deg, rgba(220, 38, 38, .08), rgba(255, 255, 255, .96));
+}
+
+.operations-health-tile.is-risk strong {
+    color: #b91c1c;
+}
+
+.operations-action-brief {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid rgba(15, 23, 42, .08);
+    border-radius: 14px;
+    background: rgba(248, 250, 252, .76);
+}
+
+.operations-action-brief > div {
+    display: grid;
+    gap: 2px;
+    min-width: 0;
+}
+
+.operations-action-brief.is-good {
+    border-color: rgba(22, 163, 74, .18);
+}
+
+.operations-action-brief.is-watch {
+    border-color: rgba(245, 158, 11, .24);
+}
+
+.operations-action-brief.is-risk {
+    border-color: rgba(220, 38, 38, .2);
+}
+
+.operations-mini-panel {
+    min-height: 132px;
+}
+
+.operations-mini-panel h4 {
+    margin: 6px 0 8px !important;
+    font-size: 18px !important;
+}
+
+.operations-attendance-summary {
+    margin-bottom: 14px;
+}
+
+.operations-attendance-summary .ant-card {
+    height: 100%;
+    border-radius: 14px;
+    border-color: rgba(109, 93, 251, .12);
+    background: rgba(248, 250, 252, .72);
+}
+
+.operations-attendance-summary h4 {
+    margin: 4px 0 0 !important;
+}
+
+@media (max-width: 767px) {
+    .operations-reports-page .filter-bar-primary {
+        display: grid;
+    }
+
+    .operations-reports-page .filter-bar-primary .ant-segmented,
+    .operations-reports-page .filter-bar-primary .ant-picker,
+    .operations-reports-page .filter-bar-primary .ant-select {
+        width: 100%;
+    }
+
+    .operations-health-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .operations-action-brief {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .project-admin-reports-page .project-admin-report-filter-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .project-admin-reports-page .project-admin-report-filter-control:last-child {
+        grid-column: auto;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    .project-admin-reports-page .project-admin-report-filter-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .project-admin-reports-page .project-admin-report-filter-control:last-child {
+        grid-column: auto;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+    .project-admin-reports-page .project-admin-report-filter-grid {
+        grid-template-columns: minmax(360px, 1fr) minmax(300px, 1fr);
+    }
+
+    .project-admin-reports-page .project-admin-report-filter-control:last-child {
+        grid-column: 1 / -1;
+    }
+}

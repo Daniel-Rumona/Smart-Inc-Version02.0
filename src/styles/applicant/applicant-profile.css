@@ -1,0 +1,372 @@
+.applicant-profile-page {
+    min-width: 0;
+}
+
+.applicant-profile-shell {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.applicant-profile-hero,
+.applicant-profile-card,
+.applicant-profile-ai-panel {
+    border-radius: 22px !important;
+    box-shadow: 0 18px 44px rgba(15, 23, 42, 0.07);
+    border: 1px solid rgba(109, 93, 251, 0.1) !important;
+    overflow: hidden;
+}
+
+.applicant-profile-hero .ant-card-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px;
+}
+
+.applicant-profile-hero-main {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.applicant-profile-hero-icon {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    border-radius: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #6d5dfb 0%, #8b5cf6 50%, #3b82f6 100%);
+    color: #fff;
+    font-size: 22px;
+    box-shadow: 0 16px 30px rgba(109, 93, 251, 0.28);
+}
+
+.applicant-profile-hero-copy {
+    min-width: 0;
+}
+
+.applicant-profile-hero-copy .ant-typography {
+    margin: 0 !important;
+}
+
+.applicant-profile-hero-actions {
+    width: min(100%, 430px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.applicant-profile-hero-actions > .ant-segmented {
+    width: 100%;
+}
+
+.applicant-profile-hero-actions > .ant-segmented .ant-segmented-group {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.applicant-profile-hero-actions > .ant-segmented .ant-segmented-item {
+    min-width: 0;
+    text-align: center;
+}
+
+.applicant-profile-hero-actions > .ant-segmented .ant-segmented-item-label {
+    justify-content: center;
+}
+
+.applicant-profile-progress {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 16px;
+    background: rgba(109, 93, 251, 0.06);
+    border: 1px solid rgba(109, 93, 251, 0.1);
+}
+
+.applicant-profile-metrics {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.applicant-profile-card .ant-card-body {
+    padding: 18px;
+}
+
+.applicant-profile-step-nav {
+    margin-bottom: 18px;
+    padding: 12px;
+    border-radius: 18px;
+    background: rgba(109, 93, 251, 0.04);
+    border: 1px solid rgba(109, 93, 251, 0.08);
+}
+
+.applicant-profile-step-panel {
+    min-width: 0;
+}
+
+.applicant-profile-step-panel .ant-typography {
+    margin-top: 0 !important;
+}
+
+.applicant-profile-actions {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(100, 116, 139, 0.14);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.applicant-profile-actions-right {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.applicant-profile-loading {
+    min-height: 260px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.applicant-profile-review-step {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.applicant-profile-review-card {
+    margin-top: 0;
+    border-radius: 18px !important;
+}
+
+.applicant-profile-review-stat {
+    border-radius: 18px !important;
+    background: rgba(109, 93, 251, 0.04) !important;
+}
+
+.applicant-profile-ai {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: 14px;
+}
+
+.applicant-profile-ai-panel .ant-card-body {
+    padding: 16px;
+}
+
+.applicant-profile-ai-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.applicant-profile-ai-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.applicant-profile-ai-progress {
+    margin-bottom: 12px;
+}
+
+.applicant-profile-chat-list {
+    max-height: 360px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-right: 4px;
+}
+
+.applicant-profile-chat-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.applicant-profile-chat-list::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: rgba(100, 116, 139, 0.22);
+}
+
+.applicant-profile-chat-row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.applicant-profile-chat-row.is-user {
+    flex-direction: row-reverse;
+}
+
+.applicant-profile-chat-bubble {
+    max-width: min(78%, 560px);
+    padding: 10px 12px;
+    border-radius: 16px;
+    background: rgba(100, 116, 139, 0.08);
+    border: 1px solid rgba(100, 116, 139, 0.1);
+}
+
+.applicant-profile-chat-row.is-user .applicant-profile-chat-bubble {
+    background: rgba(109, 93, 251, 0.1);
+    border-color: rgba(109, 93, 251, 0.16);
+}
+
+.applicant-profile-followups {
+    margin-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.applicant-profile-followup-card {
+    border-radius: 16px !important;
+    background: rgba(109, 93, 251, 0.04) !important;
+}
+
+.applicant-profile-ai-done {
+    margin-top: 14px;
+    padding: 12px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #15803d;
+    background: rgba(34, 197, 94, 0.08);
+    border: 1px solid rgba(34, 197, 94, 0.16);
+}
+
+html[data-theme='dark'] .applicant-profile-hero,
+html[data-theme='dark'] .applicant-profile-card,
+html[data-theme='dark'] .applicant-profile-ai-panel {
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.26);
+    border-color: rgba(139, 92, 246, 0.18) !important;
+}
+
+html[data-theme='dark'] .applicant-profile-progress,
+html[data-theme='dark'] .applicant-profile-step-nav,
+html[data-theme='dark'] .applicant-profile-review-stat,
+html[data-theme='dark'] .applicant-profile-followup-card {
+    background: rgba(139, 92, 246, 0.1) !important;
+    border-color: rgba(139, 92, 246, 0.18) !important;
+}
+
+html[data-theme='dark'] .applicant-profile-chat-bubble {
+    background: rgba(148, 163, 184, 0.1);
+    border-color: rgba(148, 163, 184, 0.14);
+}
+
+html[data-theme='dark'] .applicant-profile-chat-row.is-user .applicant-profile-chat-bubble {
+    background: rgba(139, 92, 246, 0.16);
+    border-color: rgba(139, 92, 246, 0.26);
+}
+
+html[data-theme='dark'] .applicant-profile-ai-done {
+    color: #86efac;
+    background: rgba(34, 197, 94, 0.1);
+    border-color: rgba(34, 197, 94, 0.2);
+}
+
+@media (max-width: 1100px) {
+    .applicant-profile-metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .applicant-profile-ai {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .applicant-profile-shell {
+        gap: 12px;
+    }
+
+    .applicant-profile-hero .ant-card-body {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 14px;
+    }
+
+    .applicant-profile-hero-main {
+        align-items: flex-start;
+    }
+
+    .applicant-profile-hero-icon {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        border-radius: 16px;
+        font-size: 18px;
+    }
+
+    .applicant-profile-hero-copy .ant-typography h3,
+    .applicant-profile-hero-copy .ant-typography,
+    .applicant-profile-hero-copy h3.ant-typography {
+        font-size: 18px !important;
+    }
+
+    .applicant-profile-card .ant-card-body,
+    .applicant-profile-ai-panel .ant-card-body {
+        padding: 14px;
+    }
+
+    .applicant-profile-step-nav {
+        padding: 8px;
+        overflow-x: auto;
+    }
+
+    .applicant-profile-actions {
+        align-items: stretch;
+    }
+
+    .applicant-profile-actions,
+    .applicant-profile-actions-right {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .applicant-profile-actions .ant-btn,
+    .applicant-profile-actions-right .ant-btn {
+        width: 100%;
+    }
+
+    .applicant-profile-ai-head,
+    .applicant-profile-ai-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .applicant-profile-ai-actions .ant-btn {
+        width: 100%;
+    }
+
+    .applicant-profile-chat-bubble {
+        max-width: 86%;
+    }
+}
+
+@media (max-width: 420px) {
+    .applicant-profile-metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .applicant-profile-hero-copy .ant-typography-secondary {
+        display: none;
+    }
+}

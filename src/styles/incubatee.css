@@ -1,0 +1,909 @@
+.incubatee-page {
+    padding-bottom: 14px;
+}
+
+.incubatee-card {
+    border-radius: 18px !important;
+    border: 1px solid rgba(109, 93, 251, .12) !important;
+}
+
+.incubatee-detail {
+    width: 100%;
+}
+
+.incubatee-page>.ant-alert {
+    margin-bottom: 16px;
+}
+
+.incubatee-requests-card {
+    margin-top: 16px;
+}
+
+.diagnostic-plan-page {
+    text-align: left;
+}
+
+.diagnostic-plan-hero {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 24px;
+    padding: 24px 26px;
+    border: 1px solid rgba(109, 93, 251, .14);
+    border-radius: 22px;
+    background: linear-gradient(135deg, rgba(109, 93, 251, .12), rgba(22, 119, 255, .04));
+}
+
+.diagnostic-plan-hero h2 {
+    margin: 4px 0 8px !important;
+}
+
+.diagnostic-plan-hero p {
+    max-width: 760px;
+    margin: 0 !important;
+    color: rgba(15, 23, 42, .65);
+}
+
+.diagnostic-plan-eyebrow {
+    color: #6d5dfb;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+
+/* Single vertical flow: title, progress summary, interventions, confirmation —
+   nothing stacked beside anything else, so it reads the same on every width. */
+.diagnostic-plan-page {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+
+    min-height: 100%;
+}
+
+.diagnostic-plan-page .dashboard-metrics-row {
+    margin-bottom: 0;
+}
+
+.diagnostic-plan-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    margin: 0 0 4px !important;
+    text-align: center;
+}
+
+.diagnostic-plan-subtitle {
+    display: block;
+
+    margin-bottom: 16px;
+
+    text-align: center;
+}
+
+.diagnostic-signature-grid {
+    display: grid;
+
+    gap: 10px;
+}
+
+/* The title is centred, so it needs real distance from the buttons sitting beside it. */
+.diagnostic-plan-section>.ant-card-head .ant-card-head-wrapper {
+    flex-wrap: wrap;
+
+    gap: 10px 18px;
+}
+
+.diagnostic-plan-section>.ant-card-head .ant-card-extra {
+    margin-inline-start: 0;
+}
+
+.diagnostic-plan-section>.ant-card-head .ant-card-extra .ant-space {
+    gap: 10px !important;
+}
+
+.diagnostic-plan-section>.ant-card-body {
+    padding: 16px 20px 20px;
+}
+
+/* Header row above the interventions list: title on the left, plan actions on the right. */
+.diagnostic-plan-interventions-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+}
+
+/* Each intervention is its own panel, matching the confirmation cards' shape. */
+.diagnostic-plan-collapse .ant-collapse-item {
+    margin-bottom: 14px;
+
+    border: 1px solid rgba(109, 93, 251, .1);
+    border-radius: 14px;
+
+    background: #fff;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, .06);
+
+    overflow: hidden;
+}
+
+.diagnostic-plan-collapse .ant-collapse-item:last-child {
+    margin-bottom: 0;
+}
+
+.diagnostic-plan-collapse .ant-collapse-header {
+    align-items: center !important;
+}
+
+.diagnostic-step-card {
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+
+    width: 100%;
+    padding: 10px 12px;
+
+    border: 1px solid #f0f0f0;
+    border-radius: 12px;
+
+    background: #fff;
+}
+
+.diagnostic-signature-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 6px;
+
+    padding: 12px 14px;
+
+    border: 1px solid rgba(109, 93, 251, .12);
+    border-radius: 14px;
+
+    background: rgba(248, 250, 252, .7);
+}
+
+.diagnostic-signature-card .ant-space {
+    width: 100%;
+}
+
+.diagnostic-signature-card img {
+    width: auto;
+    max-width: 100%;
+    height: 56px;
+    object-fit: contain;
+    object-position: left center;
+}
+
+.diagnostic-plan-confirm-action {
+    margin-top: 12px;
+}
+
+html[data-theme='dark'] .diagnostic-plan-hero p {
+    color: rgba(255, 255, 255, .65);
+}
+
+html[data-theme='dark'] .diagnostic-signature-card {
+    background: rgba(255, 255, 255, .025);
+}
+
+html[data-theme='dark'] .diagnostic-plan-collapse .ant-collapse-item {
+    background: #1b1e2a;
+}
+
+html[data-theme='dark'] .diagnostic-step-card {
+    border-color: rgba(255, 255, 255, .08);
+    background: rgba(255, 255, 255, .025);
+}
+
+@media (max-width: 767px) {
+    .diagnostic-plan-hero {
+        flex-direction: column;
+        gap: 14px;
+        padding: 20px;
+    }
+
+    .diagnostic-plan-stack {
+        gap: 16px;
+    }
+
+    .diagnostic-plan-section>.ant-card-head {
+        padding-inline: 18px;
+    }
+
+    .diagnostic-plan-section>.ant-card-body {
+        padding: 18px;
+    }
+
+    .diagnostic-plan-section .ant-card-extra {
+        margin-inline-start: 8px;
+    }
+
+    .diagnostic-plan-confirm-action .ant-btn {
+        width: 100%;
+    }
+
+    .diagnostic-plan-interventions-head {
+        justify-content: flex-start;
+    }
+
+    .diagnostic-plan-collapse .ant-collapse-item {
+        margin-bottom: 10px;
+    }
+}
+
+/* Intervention tracker controls */
+.incubatee-tracker-switcher .ant-card-body {
+    padding: 14px;
+}
+
+.incubatee-tracker-switcher-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(180px, .34fr);
+    gap: 10px;
+}
+
+.incubatee-tracker-switcher-row .ant-segmented {
+    min-width: 0;
+    padding: 4px;
+    border-radius: 999px;
+}
+
+.incubatee-tracker-switcher-row .ant-segmented-item-label {
+    min-height: 34px;
+    display: grid;
+    place-items: center;
+}
+
+.incubatee-tracker-switcher-row .ant-tag {
+    margin-inline-end: 0;
+    border-radius: 999px;
+}
+
+.incubatee-table-filter-panel {
+    width: 100%;
+    margin-bottom: 14px;
+    padding: 12px;
+    border: 1px solid rgba(109, 93, 251, .12);
+    border-radius: 14px;
+    background: rgba(109, 93, 251, .035);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(190px, .28fr);
+    gap: 10px;
+}
+
+.incubatee-table-filter-panel .ant-select {
+    width: 100%;
+}
+
+html[data-theme='dark'] .incubatee-table-filter-panel {
+    border-color: rgba(167, 139, 250, .2);
+    background: rgba(139, 92, 246, .08);
+}
+
+@media (max-width: 680px) {
+
+    .incubatee-tracker-switcher-row,
+    .incubatee-table-filter-panel {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Intervention progress drill-down: one card per dated event, one row per month. */
+.incubatee-progress-event {
+    padding: 10px 12px;
+
+    border: 1px solid #f0f0f0;
+    border-radius: 10px;
+}
+
+.incubatee-progress-month-item {
+    margin-bottom: 8px;
+    padding: 10px 12px;
+
+    cursor: pointer;
+
+    border: 1px solid #e6e6e6;
+    border-radius: 10px;
+
+    background: #fff;
+}
+
+.incubatee-progress-month-item.is-active {
+    border-color: #1677ff;
+    background: #e6f4ff;
+}
+
+html[data-theme='dark'] .incubatee-progress-event {
+    border-color: rgba(255, 255, 255, .08);
+}
+
+html[data-theme='dark'] .incubatee-progress-month-item {
+    border-color: rgba(255, 255, 255, .08);
+    background: rgba(255, 255, 255, .02);
+}
+
+html[data-theme='dark'] .incubatee-progress-month-item.is-active {
+    border-color: #1677ff;
+    background: rgba(22, 119, 255, .15);
+}
+
+.incubatee-demo-banner {
+    margin-bottom: 12px;
+    border-radius: 14px;
+}
+
+/* =========================================================
+   Compact Dashboard Item Rows
+   ========================================================= */
+
+.incubatee-items {
+    display: flex;
+    flex-direction: column;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+.incubatee-item {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 7px 2px;
+
+    border-bottom: 1px solid rgba(109, 93, 251, .1);
+}
+
+.incubatee-item:last-child {
+    border-bottom: 0;
+}
+
+.incubatee-item-icon {
+    flex: 0 0 auto;
+
+    display: grid;
+    place-items: center;
+
+    width: 28px;
+    height: 28px;
+
+    border-radius: 50%;
+
+    font-size: 13px;
+}
+
+.incubatee-item-icon.is-neutral {
+    color: #64748b;
+    background: rgba(100, 116, 139, .12);
+}
+
+.incubatee-item-icon.is-info {
+    color: #2563eb;
+    background: rgba(37, 99, 235, .1);
+}
+
+.incubatee-item-icon.is-warning {
+    color: #d97706;
+    background: rgba(245, 158, 11, .14);
+}
+
+.incubatee-item-icon.is-danger {
+    color: #dc2626;
+    background: rgba(220, 38, 38, .12);
+}
+
+.incubatee-item-icon.is-success {
+    color: #059669;
+    background: rgba(5, 150, 105, .12);
+}
+
+.incubatee-item-copy {
+    flex: 1;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.incubatee-item-copy strong {
+    overflow: hidden;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.incubatee-item-copy span {
+    overflow: hidden;
+
+    color: rgba(100, 116, 139, .9);
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    font-size: 11px;
+    line-height: 1.35;
+}
+
+.incubatee-item-status {
+    flex: 0 0 auto;
+
+    margin: 0 !important;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.incubatee-item .ant-btn {
+    flex: 0 0 auto;
+}
+
+.incubatee-metric-modal .incubatee-item {
+    padding-block: 9px;
+}
+
+html[data-theme='dark'] .incubatee-item {
+    border-bottom-color: rgba(139, 92, 246, .16);
+}
+
+html[data-theme='dark'] .incubatee-item-copy span {
+    color: rgba(226, 232, 240, .6);
+}
+
+@media (max-width: 767px) {
+    .incubatee-item {
+        gap: 8px;
+    }
+
+    .incubatee-item-icon {
+        width: 24px;
+        height: 24px;
+
+        font-size: 12px;
+    }
+
+    .incubatee-item-status {
+        display: none;
+    }
+}
+
+/* =========================================================
+   Monthly Metrics
+   Built to sit on one screen: cards, filters, then a single
+   panel that takes the rest of the height and scrolls inside
+   itself rather than scrolling the page.
+   ========================================================= */
+
+.incubatee-metrics-page {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+
+    min-height: 100%;
+}
+
+/* Same idea as the plan page: the panel scrolls, not the page. */
+@media (min-width: 992px) {
+    .incubatee-metrics-page {
+        height: 100%;
+    }
+}
+
+.incubatee-metrics-page .dashboard-metrics-row {
+    margin-bottom: 0;
+}
+
+.incubatee-metrics-page .filter-bar {
+    flex: 0 0 auto;
+
+    margin-bottom: 0;
+}
+
+/* The range is the only filter, so it takes the spare width; the switch and the action
+   get enough of their own that neither is squeezed to its text. */
+.incubatee-metrics-page .filter-bar-controls>.ant-picker {
+    flex: 1 1 auto;
+
+    min-width: 260px;
+}
+
+.incubatee-metrics-page .filter-bar-controls>.ant-segmented .ant-segmented-item {
+    min-width: 108px;
+}
+
+.incubatee-metrics-page .filter-bar-controls>.ant-btn {
+    min-width: 210px;
+}
+
+.incubatee-metrics-mobile-actions {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+}
+
+.incubatee-metrics-mobile-actions>*:first-child {
+    flex: 0 0 auto;
+}
+
+.incubatee-metrics-mobile-actions .ant-btn {
+    flex: 0 0 auto;
+
+    width: auto;
+}
+
+.incubatee-metrics-panel {
+    /* Fills the height the cards and filters leave, so the table is not floating in dead space. */
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    min-height: 0;
+}
+
+.incubatee-metrics-panel .ant-card-head {
+    min-height: 0;
+
+    padding-inline: 14px;
+}
+
+.incubatee-metrics-panel .ant-card-head-title {
+    padding-block: 10px;
+
+    font-size: 14px;
+}
+
+.incubatee-metrics-panel .ant-card-body {
+    flex: 1;
+    min-height: 0;
+
+    padding: 10px 14px 14px;
+
+    overflow: auto;
+}
+
+.incubatee-metrics-panel .ant-table-pagination {
+    margin-bottom: 0 !important;
+}
+
+/* Three charts across, so the analytics view is one screen too. */
+.incubatee-metrics-charts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-content: start;
+
+    gap: 12px;
+}
+
+@media (max-width: 1200px) {
+    .incubatee-metrics-charts {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .incubatee-metrics-charts .is-wide {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 767px) {
+    .incubatee-metrics-charts {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================================
+   Monthly Metrics Upload
+   ========================================================= */
+
+.incubatee-upload-picker {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 10px;
+
+    margin-top: 14px;
+}
+
+.incubatee-upload-option {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 12px 14px;
+
+    border: 1px solid rgba(109, 93, 251, .16);
+    border-radius: 14px;
+
+    color: inherit;
+    background: var(--ant-color-bg-container);
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: border-color .18s ease, background .18s ease, transform .18s ease;
+}
+
+.incubatee-upload-option:hover {
+    border-color: rgba(109, 93, 251, .42);
+
+    transform: translateY(-1px);
+}
+
+.incubatee-upload-option.is-active {
+    border-color: #6d5dfb;
+
+    background: rgba(109, 93, 251, .08);
+}
+
+.incubatee-upload-option-icon {
+    flex: 0 0 auto;
+
+    display: grid;
+    place-items: center;
+
+    width: 34px;
+    height: 34px;
+
+    border-radius: 50%;
+
+    color: #6d5dfb;
+    background: rgba(109, 93, 251, .12);
+
+    font-size: 16px;
+}
+
+.incubatee-upload-option-copy {
+    flex: 1;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.incubatee-upload-option-copy strong {
+    font-size: 13px;
+    line-height: 1.3;
+}
+
+.incubatee-upload-option-copy span {
+    color: rgba(100, 116, 139, .9);
+
+    font-size: 11px;
+    line-height: 1.3;
+}
+
+.incubatee-upload-option-check {
+    flex: 0 0 auto;
+
+    color: #6d5dfb;
+
+    font-size: 16px;
+}
+
+.incubatee-upload-footer {
+    display: flex;
+    justify-content: flex-end;
+
+    width: 100%;
+}
+
+html[data-theme='dark'] .incubatee-upload-option {
+    border-color: rgba(139, 92, 246, .28);
+}
+
+html[data-theme='dark'] .incubatee-upload-option.is-active {
+    border-color: #a78bfa;
+
+    background: rgba(139, 92, 246, .18);
+}
+
+html[data-theme='dark'] .incubatee-upload-option-copy span {
+    color: rgba(226, 232, 240, .6);
+}
+
+@media (max-width: 767px) {
+    .incubatee-upload-picker {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Stack the panels once the side column would be too narrow to read. */
+@media (max-width: 1100px) {
+    .diagnostic-plan-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Stacked, so there is nothing to stick to. */
+    .diagnostic-plan-side {
+        position: static;
+    }
+}
+
+/* Compliance shares the metrics page shell; two panels side by side in the risk view. */
+.incubatee-compliance-page {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+
+    min-height: 100%;
+}
+
+@media (min-width: 992px) {
+    .incubatee-compliance-page {
+        height: 100%;
+    }
+}
+
+.incubatee-compliance-page .dashboard-metrics-row,
+.incubatee-compliance-page .filter-bar {
+    flex: 0 0 auto;
+
+    margin-bottom: 0;
+}
+
+/* Every control takes an equal share of the bar. */
+.incubatee-compliance-page .filter-bar-controls>.ant-select,
+.incubatee-compliance-page .filter-bar-controls>.ant-segmented,
+.incubatee-compliance-page .filter-bar-controls>.ant-btn {
+    flex: 1 1 0;
+
+    min-width: 0;
+}
+
+/* A stretched segmented has to stretch its segments too, or the track runs on past them. */
+.incubatee-compliance-page .filter-bar-controls>.ant-segmented .ant-segmented-group {
+    width: 100%;
+}
+
+.incubatee-compliance-page .filter-bar-controls>.ant-segmented .ant-segmented-item {
+    flex: 1 1 0;
+
+    min-width: 0;
+}
+
+.incubatee-compliance-charts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-content: start;
+
+    gap: 12px;
+}
+
+/* A chart sets its own height; scrolling the panel body just clipped it. */
+.incubatee-compliance-charts .incubatee-metrics-panel>.ant-card-body {
+    display: flex;
+    flex-direction: column;
+
+    overflow: visible;
+}
+
+@media (max-width: 991px) {
+    .incubatee-compliance-charts {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* The shared mobile rule hides metric cards past the second; these pages are short
+   enough to show them all, and on compliance the hidden ones are the actionable ones. */
+@media (max-width: 767px) {
+    .incubatee-page .dashboard-metrics-row>div:nth-child(n + 3) {
+        display: block;
+    }
+}
+
+/* =========================================================
+   Compliance Score Gauge
+   ========================================================= */
+
+.compliance-score {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+}
+
+/* The lower quarter of a 180-degree gauge is empty arc; trimming it lets the
+   visible half-circle sit in the middle of the card rather than riding high. */
+.compliance-score .ant-progress-dashboard {
+    margin-bottom: -18%;
+}
+
+.compliance-score .ant-progress-text {
+    inset-block-start: 62% !important;
+}
+
+.compliance-score-value {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 2px;
+}
+
+.compliance-score-value strong {
+    font-size: 26px;
+    font-weight: 750;
+    line-height: 1;
+}
+
+.compliance-score-value span {
+    color: rgba(100, 116, 139, .95);
+
+    font-size: 11px;
+}
+
+.compliance-score-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    gap: 6px 14px;
+
+    font-size: 12px;
+}
+
+.compliance-score-legend span {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 6px;
+
+    color: rgba(100, 116, 139, .95);
+}
+
+.compliance-score-legend i {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+}
+
+.compliance-score-legend i.is-valid {
+    background: #059669;
+}
+
+.compliance-score-legend i.is-missing {
+    background: #dc2626;
+}
+
+.compliance-score-legend i.is-expired {
+    background: #d97706;
+}
+
+.compliance-score-legend i.is-queried {
+    background: #7c3aed;
+}
+
+html[data-theme='dark'] .compliance-score-value span,
+html[data-theme='dark'] .compliance-score-legend span {
+    color: rgba(226, 232, 240, .62);
+}

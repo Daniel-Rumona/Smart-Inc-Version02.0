@@ -1,0 +1,750 @@
+/* =========================================================
+   Survey Builder
+   Three columns: outline, the question being edited, its
+   settings. The bar stays put so the actions never scroll away.
+   ========================================================= */
+
+.survey-builder-page,
+.operations-surveys-page {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+
+    min-height: 100%;
+}
+
+.survey-builder-bar {
+    position: sticky;
+    top: 0;
+
+    z-index: 10;
+}
+
+.survey-builder-bar>.ant-card-body {
+    padding: 10px 14px;
+}
+
+.survey-builder-bar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 14px;
+}
+
+.survey-builder-bar-side {
+    flex: 0 0 auto;
+}
+
+.survey-builder-bar-side.is-end {
+    margin-left: auto;
+}
+
+/* Title and description double as the way into survey settings. */
+.survey-builder-identity {
+    flex: 1 1 auto;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 2px 8px;
+
+    border: 0;
+    border-radius: 10px;
+
+    background: transparent;
+    color: inherit;
+
+    text-align: center;
+
+    cursor: pointer;
+}
+
+.survey-builder-identity:hover {
+    background: rgba(109, 93, 251, .06);
+}
+
+.survey-builder-identity strong {
+    max-width: 100%;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    font-size: 16px;
+    line-height: 1.3;
+}
+
+.survey-builder-identity span {
+    max-width: 100%;
+
+    overflow: hidden;
+
+    color: rgba(100, 116, 139, .95);
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    font-size: 12px;
+}
+
+.survey-builder-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 260px) minmax(0, 1fr) minmax(0, 300px);
+    align-items: start;
+
+    gap: 12px;
+}
+
+.survey-builder-grid.is-compact {
+    grid-template-columns: 1fr;
+}
+
+.survey-builder-side {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+.survey-builder-outline>.ant-card-body {
+    max-height: calc(100dvh - 260px);
+
+    padding: 8px;
+
+    overflow-y: auto;
+}
+
+
+/* =========================================================
+   Outline Rows
+   ========================================================= */
+
+.survey-outline {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+.survey-outline-row {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 8px;
+
+    padding: 7px 8px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    transition: background .18s ease;
+}
+
+.survey-outline-row:hover {
+    background: rgba(109, 93, 251, .06);
+}
+
+.survey-outline-row.is-selected {
+    background: rgba(109, 93, 251, .12);
+}
+
+.survey-outline-row.is-dragging {
+    background: rgba(109, 93, 251, .16);
+}
+
+.survey-outline-handle {
+    flex: 0 0 auto;
+
+    padding-top: 2px;
+
+    color: rgba(100, 116, 139, .7);
+
+    cursor: grab;
+}
+
+.survey-outline-index {
+    flex: 0 0 auto;
+
+    margin-inline-end: 0 !important;
+
+    border-radius: 999px;
+}
+
+.survey-outline-copy {
+    flex: 1;
+    min-width: 0;
+}
+
+.survey-outline-label {
+    margin: 0 !important;
+
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.35;
+}
+
+.survey-outline-type {
+    display: block;
+
+    margin-top: 2px;
+
+    color: rgba(100, 116, 139, .9);
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   Question Canvas
+   ========================================================= */
+
+.survey-builder-question>.ant-card-body {
+    padding: 24px;
+}
+
+.survey-question-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 16px;
+
+    margin-bottom: 18px;
+}
+
+.survey-question-number {
+    color: rgba(100, 116, 139, .5);
+
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+
+    letter-spacing: -.04em;
+}
+
+.survey-question-label {
+    display: flex;
+    align-items: flex-end;
+
+    gap: 6px;
+
+    margin-bottom: 16px;
+
+    border-bottom: 1px dashed rgba(109, 93, 251, .28);
+}
+
+.survey-question-label .ant-input {
+    padding: 4px 0 7px !important;
+
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 1.4;
+
+    resize: none;
+}
+
+.survey-question-required {
+    padding-bottom: 7px;
+
+    color: #dc2626;
+
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.survey-question-help {
+    margin: -8px 0 14px;
+
+    color: rgba(100, 116, 139, .95);
+
+    font-size: 12px;
+}
+
+.survey-builder-empty>.ant-card-body {
+    padding: 36px;
+
+    text-align: center;
+}
+
+.survey-field-dragger {
+    padding: 8px 0;
+}
+
+.survey-field-heading {
+    margin: 0 !important;
+}
+
+
+/* =========================================================
+   Question Settings
+   ========================================================= */
+
+.survey-settings-stack,
+.survey-options {
+    width: 100%;
+}
+
+.survey-setting {
+    display: block;
+}
+
+.survey-setting>span {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: rgba(100, 116, 139, .95);
+
+    font-size: 12px;
+}
+
+.survey-setting .ant-select {
+    width: 100%;
+}
+
+.survey-setting.is-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+.survey-setting.is-row>span {
+    margin-bottom: 0;
+}
+
+.survey-snapshot-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+
+    padding: 5px 0;
+
+    font-size: 13px;
+}
+
+.survey-snapshot-row>span {
+    color: rgba(100, 116, 139, .95);
+}
+
+.survey-snapshot-row .ant-tag {
+    margin-inline-end: 0;
+}
+
+
+/* =========================================================
+   Add Field Palette
+   ========================================================= */
+
+.survey-add-head {
+    margin-bottom: 18px;
+}
+
+.survey-add-head .ant-typography {
+    margin: 0 0 4px;
+}
+
+.survey-add-search {
+    max-width: 360px;
+
+    margin-bottom: 22px;
+
+    border-radius: 12px;
+}
+
+.survey-add-groups {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+
+    column-gap: 30px;
+    row-gap: 24px;
+}
+
+.survey-add-group-title {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.survey-add-option {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    width: 100%;
+    min-height: 50px;
+
+    padding: 6px 8px;
+
+    border: 0;
+    border-radius: 10px;
+
+    background: transparent;
+    color: inherit;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: background .18s ease;
+}
+
+.survey-add-option:hover {
+    background: rgba(109, 93, 251, .08);
+}
+
+.survey-add-option-icon {
+    flex: 0 0 36px;
+
+    display: grid;
+    place-items: center;
+
+    width: 36px;
+    height: 36px;
+
+    border-radius: 10px;
+
+    color: #3f3a46;
+
+    font-size: 17px;
+}
+
+.survey-add-option-icon.is-blue {
+    background: #d6e9ff;
+}
+
+.survey-add-option-icon.is-violet {
+    background: #e3ddff;
+}
+
+.survey-add-option-icon.is-amber {
+    background: #ffe3a8;
+}
+
+.survey-add-option-icon.is-pink {
+    background: #f7d4df;
+}
+
+.survey-add-option-icon.is-green {
+    background: #d9edcf;
+}
+
+.survey-add-option-copy {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.survey-add-option-copy strong {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.survey-add-option-copy span {
+    overflow: hidden;
+
+    color: rgba(100, 116, 139, .95);
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   Import Review
+   ========================================================= */
+
+.survey-import-stack {
+    width: 100%;
+}
+
+.survey-import-busy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 20px;
+}
+
+.survey-import-review {
+    max-height: 40vh;
+
+    overflow: auto;
+}
+
+.survey-import-review-row {
+    width: 100%;
+}
+
+.survey-import-review-copy {
+    min-width: 0;
+}
+
+.survey-import-review-meta {
+    margin-top: 4px;
+}
+
+.survey-import-review-meta .ant-typography {
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   Preview
+   ========================================================= */
+
+.survey-preview-modal .ant-modal-body {
+    padding: 0;
+}
+
+.survey-preview-head .ant-typography {
+    margin: 0 0 2px;
+}
+
+.survey-preview-control {
+    width: 100%;
+}
+
+.survey-preview-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+}
+
+.survey-preview-nav.is-single {
+    grid-template-columns: 1fr;
+}
+
+.survey-preview-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 44px 24px;
+}
+
+.survey-list-count {
+    color: rgba(100, 116, 139, .95);
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   Dark Mode
+   ========================================================= */
+
+html[data-theme='dark'] .survey-builder-identity span,
+html[data-theme='dark'] .survey-outline-type,
+html[data-theme='dark'] .survey-setting>span,
+html[data-theme='dark'] .survey-snapshot-row>span,
+html[data-theme='dark'] .survey-question-help,
+html[data-theme='dark'] .survey-list-count {
+    color: rgba(226, 232, 240, .62);
+}
+
+html[data-theme='dark'] .survey-add-option:hover {
+    background: rgba(139, 92, 246, .16);
+}
+
+html[data-theme='dark'] .survey-add-option-copy span {
+    color: rgba(226, 232, 240, .62);
+}
+
+html[data-theme='dark'] .survey-outline-row.is-selected {
+    background: rgba(139, 92, 246, .2);
+}
+
+
+/* =========================================================
+   Narrow Screens
+   ========================================================= */
+
+@media (max-width: 767px) {
+    .survey-builder-bar-inner {
+        flex-wrap: wrap;
+
+        gap: 8px;
+    }
+
+    .survey-builder-identity {
+        order: -1;
+
+        width: 100%;
+    }
+
+    .survey-builder-bar-side.is-end {
+        margin-left: 0;
+    }
+
+    .survey-builder-question>.ant-card-body {
+        padding: 16px;
+    }
+
+    .survey-add-groups {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================================
+   Prefilled Sections And Import
+   ========================================================= */
+
+.survey-question-prefill {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin: 12px 0 0;
+
+    color: rgba(100, 116, 139, .95);
+
+    font-size: 12px;
+}
+
+.survey-setting-note {
+    font-size: 12px;
+}
+
+.survey-section-heading {
+    margin: 18px 0 2px;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.survey-section-note {
+    margin: 0 0 10px;
+
+    color: rgba(100, 116, 139, .95);
+
+    font-size: 12px;
+}
+
+.survey-section-grid {
+    display: grid;
+
+    gap: 8px;
+}
+
+.survey-section-option {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 10px 12px;
+
+    border: 1px solid rgba(109, 93, 251, .16);
+    border-radius: 12px;
+
+    background: var(--ant-color-bg-container);
+    color: inherit;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: border-color .18s ease, background .18s ease;
+}
+
+.survey-section-option:hover {
+    border-color: #6d5dfb;
+
+    background: rgba(109, 93, 251, .08);
+}
+
+.survey-section-option-icon {
+    flex: 0 0 auto;
+
+    display: grid;
+    place-items: center;
+
+    width: 30px;
+    height: 30px;
+
+    border-radius: 50%;
+
+    color: #6d5dfb;
+    background: rgba(109, 93, 251, .12);
+
+    font-size: 13px;
+}
+
+.survey-section-option-copy {
+    flex: 1;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.survey-section-option-copy strong {
+    font-size: 13px;
+}
+
+.survey-section-option-copy span {
+    color: rgba(100, 116, 139, .95);
+
+    font-size: 11px;
+    line-height: 1.35;
+}
+
+.survey-import-mode {
+    margin-bottom: 14px;
+}
+
+.survey-import-alert {
+    margin-bottom: 12px;
+}
+
+.survey-import-options {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+
+    margin-top: 14px;
+}
+
+.survey-import-note {
+    margin: 12px 0 0;
+
+    color: rgba(100, 116, 139, .95);
+
+    font-size: 11px;
+}
+
+html[data-theme='dark'] .survey-section-option {
+    border-color: rgba(139, 92, 246, .28);
+}
+
+html[data-theme='dark'] .survey-section-note,
+html[data-theme='dark'] .survey-section-option-copy span,
+html[data-theme='dark'] .survey-question-prefill,
+html[data-theme='dark'] .survey-import-note {
+    color: rgba(226, 232, 240, .62);
+}

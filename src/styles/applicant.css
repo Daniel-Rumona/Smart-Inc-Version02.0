@@ -1,0 +1,19 @@
+.applicant-page { padding-bottom: 12px; }
+.applicant-metrics { margin-bottom: 16px; }
+.applicant-card { border-radius: 18px !important; border: 1px solid rgba(109, 93, 251, 0.12) !important; box-shadow: 0 12px 30px rgba(15, 23, 42, 0.045); }
+.applicant-card .ant-card-head { border-bottom-color: rgba(109, 93, 251, 0.1); }
+.applicant-full-width { width: 100%; }
+.applicant-form-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.applicant-program-card { height: 100%; }
+.applicant-program-card .ant-card-body, .applicant-program-card .ant-space { width: 100%; height: 100%; }
+.applicant-program-card h4, .applicant-program-card p { margin: 0 !important; }
+.applicant-program-card .ant-btn { margin-top: auto; }
+.applicant-application-form { margin-top: 20px; }
+.applicant-pagination { display: flex; justify-content: center; margin-top: 16px !important; }
+html[data-theme='dark'] .applicant-card { background: rgba(23, 25, 35, 0.9); }
+@media (max-width: 991px) {
+  .applicant-form-footer { align-items: stretch; flex-direction: column; }
+}
+@media (max-width: 767px) {
+  .applicant-metrics .applicant-metric-col:nth-child(n + 3) { display: none; }
+}

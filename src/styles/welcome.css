@@ -1,0 +1,695 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Great+Vibes&family=Pacifico&family=Satisfy&display=swap');
+
+.welcome-page {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+    padding: 22px;
+    background:
+        radial-gradient(760px 460px at 8% 4%, rgba(109, 93, 251, .16), transparent 68%),
+        radial-gradient(700px 440px at 96% 94%, rgba(59, 130, 246, .12), transparent 68%),
+        #f7f8fc;
+}
+
+.welcome-floating-actions {
+    position: fixed;
+    top: 22px;
+    right: 24px;
+    z-index: 5;
+    display: flex;
+    gap: 8px;
+}
+
+.welcome-floating-btn { border-radius: 999px !important; box-shadow: 0 5px 16px rgba(15, 23, 42, .08); width: 42px; padding-inline: 0 !important; justify-content: center; }
+.welcome-control-label { display: none; }
+
+.welcome-shell {
+    width: min(900px, 100%);
+    overflow: hidden;
+    border-radius: 28px !important;
+    border: 1px solid rgba(109, 93, 251, .14) !important;
+    box-shadow: 0 24px 70px rgba(15, 23, 42, .12);
+}
+
+.welcome-shell .ant-card-body {
+    padding: clamp(24px, 3vw, 38px);
+}
+
+.welcome-conversation-stage {
+    width: 100%;
+    min-height: 410px;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: 22px;
+    animation: welcome-stage-enter .26s ease both;
+}
+
+.welcome-guide-message {
+    width: min(760px, 100%);
+    display: grid;
+    justify-items: center;
+    gap: 6px;
+    padding: 8px 10px;
+    text-align: center;
+}
+
+.welcome-guide-message.is-intro {
+    width: min(700px, 100%);
+    padding: 12px 18px;
+}
+
+.welcome-guide-avatar {
+    width: 56px;
+    height: 56px;
+    display: grid;
+    place-items: center;
+    border-radius: 18px;
+    color: #fff;
+    background: linear-gradient(145deg, #6d5dfb, #3b82f6);
+    box-shadow: 0 12px 26px rgba(86, 93, 239, .24);
+    font-size: 25px;
+}
+
+.welcome-guide-content {
+    min-width: 0;
+}
+
+.welcome-guide-label {
+    color: #6657e8 !important;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .12em;
+}
+
+.welcome-guide-label::first-letter { color: #6d5dfb; }
+
+.welcome-guide-status {
+    color: #7a859b !important;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .1em;
+}
+
+.welcome-guide-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: #6d5dfb;
+    box-shadow: 0 0 0 5px rgba(109, 93, 251, .1);
+    animation: welcome-guide-pulse 1s ease-in-out infinite;
+}
+
+.welcome-guide-dot.is-ready {
+    background: #22c55e;
+    box-shadow: 0 0 0 5px rgba(34, 197, 94, .1);
+    animation: none;
+}
+
+.welcome-guide-copy {
+    min-height: 0;
+    margin: 8px 0 0 !important;
+    color: #303b52;
+    font-size: clamp(16px, 2vw, 18px);
+    line-height: 1.7;
+}
+
+.welcome-choice-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.welcome-choice-grid-compact { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+.welcome-choice-card {
+    grid-column: span 2;
+    display: grid;
+    justify-items: center;
+    gap: 6px;
+    min-height: 70px;
+    padding: 9px 8px;
+    border: 1px solid #e2e6f0;
+    border-radius: 16px;
+    color: #303b52;
+    background: #fff;
+    cursor: pointer;
+    transition: .18s ease;
+}
+
+.welcome-choice-card:hover { border-color: #8b7cf6; transform: translateY(-1px); }
+.welcome-choice-card.is-selected { border-color: #6d5dfb; color: #5848dd; background: #f1efff; box-shadow: 0 0 0 2px rgba(109,93,251,.12); }
+.welcome-choice-card svg { font-size: 22px; }
+.welcome-choice-card strong { font-size: 13px; text-align: center; }
+.welcome-choice-card small { color: #7a859b; font-size: 11px; }
+.welcome-choice-grid > .welcome-choice-card:only-child { grid-column: 1 / -1; }
+.welcome-choice-grid:has(> .welcome-choice-card:nth-child(4):last-child) > .welcome-choice-card { grid-column: span 3; }
+.welcome-choice-grid:has(> .welcome-choice-card:nth-child(5):last-child) > .welcome-choice-card:nth-child(n + 4) { grid-column: span 3; }
+.welcome-choice-grid:has(> .welcome-choice-card:nth-child(8):last-child) > .welcome-choice-card:nth-child(n + 7) { grid-column: span 3; }
+.welcome-review-grid { width: 100%; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.welcome-review-grid > button { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 10px; padding: 12px; border: 1px solid #e2e6f0; border-radius: 12px; text-align: left; background: transparent; cursor: pointer; }
+.welcome-review-grid > button > .ant-typography-secondary,
+.welcome-review-grid > button > strong { grid-column: 1; }
+.welcome-review-grid > button > .welcome-edit-icon { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+.welcome-review-grid > button:hover { border-color: #6d5dfb; }
+.welcome-edit-icon { width: 28px; height: 28px; display: grid; place-items: center; align-self: start; border: 1px solid currentColor; border-radius: 50%; color: #6d5dfb; font-size: 13px; }
+
+@media (max-width: 640px) {
+    .welcome-choice-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .welcome-choice-grid-compact { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .welcome-choice-card,
+    .welcome-choice-grid:has(> .welcome-choice-card:nth-child(4):last-child) > .welcome-choice-card,
+    .welcome-choice-grid:has(> .welcome-choice-card:nth-child(5):last-child) > .welcome-choice-card:nth-child(n + 4),
+    .welcome-choice-grid:has(> .welcome-choice-card:nth-child(8):last-child) > .welcome-choice-card:nth-child(n + 7) { grid-column: span 1; }
+}
+
+.welcome-typing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    margin-left: 3px;
+    vertical-align: -.12em;
+    border-radius: 999px;
+    background: #6d5dfb;
+    animation: welcome-cursor-blink .8s steps(1) infinite;
+}
+
+.welcome-reveal {
+    animation: welcome-reveal .45s ease-out both;
+}
+
+.welcome-intro-action {
+    width: min(320px, 100%);
+}
+
+.welcome-intro-action .ant-btn {
+    width: 100%;
+    height: 48px;
+    border-radius: 13px;
+    font-weight: 650;
+}
+
+.welcome-panel {
+    width: min(620px, 100%);
+    display: grid;
+    justify-items: center;
+    gap: 16px;
+    text-align: center;
+}
+
+.welcome-role-panel {
+    width: min(760px, 100%);
+    gap: 14px;
+}
+
+.welcome-role-grid {
+    width: 100%;
+    display: grid;
+    gap: 12px;
+}
+
+.welcome-role-card {
+    width: 100%;
+    min-height: 112px;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 16px;
+    padding: 17px 18px;
+    border: 1px solid #dfe4ef;
+    border-radius: 18px;
+    color: inherit;
+    background: #fff;
+    box-shadow: 0 7px 22px rgba(15, 23, 42, .045);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease, background .18s ease;
+}
+
+.welcome-role-card:hover {
+    border-color: #9a90ff;
+    box-shadow: 0 12px 26px rgba(76, 81, 191, .1);
+    transform: translateY(-1px);
+}
+
+.welcome-role-card:focus-visible {
+    outline: 3px solid rgba(109, 93, 251, .24);
+    outline-offset: 3px;
+}
+
+.welcome-role-card.is-selected {
+    border-color: #6d5dfb;
+    background: linear-gradient(145deg, rgba(109, 93, 251, .085), rgba(59, 130, 246, .035));
+    box-shadow: 0 12px 28px rgba(76, 81, 191, .13);
+}
+
+.welcome-role-icon {
+    width: 52px;
+    height: 52px;
+    display: grid;
+    place-items: center;
+    border-radius: 16px;
+    font-size: 23px;
+}
+
+.welcome-role-icon.is-sme {
+    color: #1769d2;
+    background: #eaf3ff;
+}
+
+.welcome-role-icon.is-consultant {
+    color: #6d43d9;
+    background: #f2edff;
+}
+
+.welcome-role-copy {
+    display: grid;
+    gap: 5px;
+    min-width: 0;
+}
+
+.welcome-role-copy strong {
+    color: #182238;
+    font-size: 17px;
+}
+
+.welcome-role-copy small {
+    color: #647087;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.welcome-role-check {
+    color: #c7ccda;
+    font-size: 20px;
+    transition: color .18s ease, transform .18s ease;
+}
+
+.welcome-role-card.is-selected .welcome-role-check {
+    color: #6d5dfb;
+    transform: scale(1.05);
+}
+
+.welcome-role-panel>.ant-btn {
+    width: min(380px, 100%);
+    height: 46px;
+    margin-top: 2px;
+    border-radius: 13px;
+}
+
+.welcome-section-heading {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 14px;
+    align-items: center;
+    text-align: left;
+}
+
+.welcome-section-heading h4,
+.welcome-section-heading p {
+    margin: 0 !important;
+}
+.welcome-section-heading { justify-items: center; text-align: center; }
+.welcome-section-heading > div { display: grid; justify-items: center; }
+.welcome-section-heading { display: none !important; }
+
+.welcome-section-heading p {
+    margin-top: 3px !important;
+    color: #647087;
+}
+
+.welcome-panel-icon {
+    width: 54px;
+    height: 54px;
+    display: grid;
+    place-items: center;
+    border-radius: 17px;
+    color: #6d5dfb;
+    background: rgba(109, 93, 251, .1);
+    font-size: 24px;
+}
+
+.welcome-panel-icon.is-complete {
+    color: #16a34a;
+    background: rgba(34, 197, 94, .12);
+}
+
+.welcome-password-form,
+.welcome-consultant-form {
+    width: 100%;
+    text-align: left;
+}
+
+.welcome-signature-panel,
+.welcome-consultant-panel {
+    width: min(700px, 100%);
+}
+
+.welcome-signature-builder {
+    width: 100%;
+    text-align: left;
+}
+
+.welcome-signature-stack {
+    width: 100%;
+}
+
+.welcome-signature-modes {
+    width: 100%;
+}
+
+.welcome-signature-modes .ant-radio-button-wrapper {
+    width: 100%;
+    height: 46px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px !important;
+    font-weight: 600;
+}
+
+.welcome-signature-section {
+    width: 100%;
+    padding: 16px;
+    border: 1px solid #dbe7ff;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, .88);
+    box-shadow: 0 8px 22px rgba(15, 23, 42, .05);
+}
+
+.welcome-signature-font {
+    width: 100%;
+}
+
+.welcome-signature-preview {
+    max-width: 100%;
+    min-width: min(320px, 100%);
+    display: inline-block;
+    padding: 14px 20px;
+    border: 1px dashed #91a3c0;
+    border-radius: 12px;
+    background: #fff;
+    color: #111827;
+    font-size: 40px;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+    text-align: center;
+}
+
+.welcome-signature-canvas {
+    width: 100%;
+    max-width: 520px;
+    height: 180px;
+    overflow: hidden;
+    border: 1px dashed #91a3c0;
+    border-radius: 12px;
+    background: #fff;
+}
+
+.welcome-signature-canvas canvas {
+    width: 100%;
+    height: 180px;
+    display: block;
+    background: #fff;
+}
+
+.welcome-signature-dragger {
+    width: 100%;
+}
+
+.welcome-signature-dragger .ant-upload-drag {
+    border-radius: 14px !important;
+    border-color: #91caff !important;
+    background: #fafcff !important;
+}
+
+.welcome-signature-dragger .ant-upload-drag-icon .anticon {
+    color: #1677ff;
+}
+
+.welcome-signature-current {
+    display: grid;
+    gap: 10px;
+    width: fit-content;
+    max-width: 100%;
+    padding: 14px;
+    border: 1px solid #dbe7ff;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .92);
+}
+
+.welcome-signature-current img {
+    max-width: min(320px, 100%);
+    max-height: 90px;
+    object-fit: contain;
+    display: block;
+}
+
+.welcome-complete-panel {
+    max-width: 520px;
+}
+
+.welcome-complete-panel h3,
+.welcome-complete-panel p {
+    margin: 0 !important;
+}
+
+.welcome-complete-panel .ant-btn {
+    width: min(360px, 100%);
+    height: 46px;
+    border-radius: 13px;
+}
+
+.welcome-back {
+    margin-top: 12px;
+    width: 100%;
+    min-height: 44px;
+    border: 1px solid #e2e6f0;
+    border-radius: 12px;
+    background: transparent;
+}
+
+.welcome-actions-row { width: 100%; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.welcome-actions-row .ant-btn { width: 100%; }
+.welcome-actions-row:has(> .ant-btn:only-child) .ant-btn { grid-column: 1 / -1; }
+.welcome-step-consultantLocation .welcome-back,
+.welcome-step-consultantReach .welcome-back,
+.welcome-step-consultantExpertise .welcome-back,
+.welcome-step-consultantExperience .welcome-back,
+.welcome-step-consultantAbout .welcome-back,
+.welcome-step-consultantReview .welcome-back { display: none; }
+.welcome-step-signature.welcome-mode-typed .welcome-back { display: none; }
+
+html[data-theme='dark'] .welcome-page {
+    background: #0f1117;
+}
+
+html[data-theme='dark'] .welcome-shell {
+    background: #1b1e2a;
+}
+
+html[data-theme='dark'] .welcome-floating-btn {
+    color: #eef1ff;
+    border-color: #3b4256;
+    background: #202432;
+}
+
+html[data-theme='dark'] .welcome-back { color: #eef1ff; border-color: #3b4256; }
+
+html[data-theme='dark'] .welcome-guide-message {
+    border-color: transparent;
+    background: transparent;
+}
+
+html[data-theme='dark'] .welcome-guide-copy,
+html[data-theme='dark'] .welcome-section-heading p,
+html[data-theme='dark'] .welcome-role-copy small {
+    color: #aab2c5;
+}
+
+html[data-theme='dark'] .welcome-role-card {
+    border-color: #34394a;
+    background: #232735;
+}
+
+html[data-theme='dark'] .welcome-role-card.is-selected {
+    border-color: #8b7eff;
+    background: rgba(109, 93, 251, .13);
+}
+
+html[data-theme='dark'] .welcome-role-copy strong,
+html[data-theme='dark'] .welcome-section-heading h4 {
+    color: #f5f7ff;
+}
+
+html[data-theme='dark'] .welcome-signature-section,
+html[data-theme='dark'] .welcome-signature-current {
+    border-color: #34394a;
+    background: #232735;
+}
+
+html[data-theme='dark'] .welcome-choice-card {
+    color: #eef1ff;
+    border-color: #3b4256;
+    background: #232735;
+}
+
+html[data-theme='dark'] .welcome-choice-card.is-selected {
+    border-color: #8b7eff;
+    background: rgba(109, 93, 251, .18);
+}
+html[data-theme='dark'] .welcome-review-grid > button { color: #eef1ff; border-color: #3b4256; background: #232735; }
+
+html[data-theme='dark'] .welcome-choice-card small,
+html[data-theme='dark'] .welcome-panel .ant-typography-secondary {
+    color: #aab2c5;
+}
+
+html[data-theme='dark'] .welcome-panel .ant-input,
+html[data-theme='dark'] .welcome-panel .ant-input-affix-wrapper,
+html[data-theme='dark'] .welcome-panel .ant-select-selector {
+    color: #eef1ff;
+    border-color: #3b4256;
+    background: #171a24;
+}
+
+@keyframes welcome-stage-enter {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes welcome-reveal {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes welcome-cursor-blink {
+
+    0%,
+    45% {
+        opacity: 1;
+    }
+
+    46%,
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes welcome-guide-pulse {
+
+    0%,
+    100% {
+        transform: scale(.9);
+        opacity: .75;
+    }
+
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .welcome-conversation-stage,
+    .welcome-reveal,
+    .welcome-guide-dot,
+    .welcome-typing-cursor {
+        animation: none !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .welcome-floating-actions { top: 10px; right: 10px; }
+    .welcome-floating-btn { padding-inline: 11px; }
+    .welcome-page {
+        padding: 10px;
+        align-items: start;
+    }
+
+    .welcome-shell {
+        margin-top: 10px;
+        border-radius: 24px !important;
+    }
+
+    .welcome-shell .ant-card-body {
+        padding: 18px;
+    }
+
+    .welcome-conversation-stage {
+        min-height: 520px;
+        align-content: start;
+        padding-top: 6px;
+    }
+
+    .welcome-guide-message,
+    .welcome-guide-message.is-intro {
+        justify-items: center;
+        padding: 12px 4px;
+        text-align: center;
+    }
+
+    .welcome-guide-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 15px;
+        font-size: 22px;
+    }
+
+    .welcome-guide-copy {
+        min-height: 0;
+        font-size: 16px;
+    }
+
+    .welcome-role-card {
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        min-height: 108px;
+        padding: 15px;
+        gap: 12px;
+    }
+
+    .welcome-role-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 14px;
+        font-size: 20px;
+    }
+
+    .welcome-role-copy strong {
+        font-size: 16px;
+    }
+
+    .welcome-role-copy small {
+        font-size: 12px;
+    }
+
+    .welcome-section-heading {
+        align-items: start;
+    }
+
+    .welcome-panel-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 15px;
+        font-size: 21px;
+    }
+}

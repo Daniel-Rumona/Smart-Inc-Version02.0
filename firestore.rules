@@ -1,0 +1,198 @@
+// ============================================================================
+// PARTIAL RULESET - DO NOT DEPLOY ON ITS OWN.
+// ============================================================================
+//
+// This repository has never held the project's full rules under version
+// control, and firebase.json still has no "firestore" key, so the live rules
+// for smart-incubation-71f96 are whatever is in the Firebase Console today.
+// This file only carries the match blocks for the collections added by
+// recent features:
+//
+//   - agents, companyAgentSettings, externalAgentProjects
+//       (Firestore Agent Registry + Pitchfy integration)
+//   - consultantProfiles, connectionRequests
+//       (consultant marketplace: SMEs browse published consultants and
+//        request the one they choose; operations reviews the requests)
+//
+// It has NO rules for the other collections this app uses (users, companies,
+// applications, participants, interventions, assignedInterventions,
+// businessProfiles, ...). Firestore denies anything not explicitly matched,
+// so deploying this file alone would break the rest of the app.
+//
+// To roll these out:
+//   1. Copy the live ruleset from the Firebase Console (Firestore > Rules).
+//      The Firebase CLI cannot download rules; the only programmatic route
+//      is the firebaserules.projects.rulesets.get REST endpoint.
+//   2. Paste the helper functions (once) and the match blocks below into it.
+//   3. Only once the merged file covers every collection, add a "firestore"
+//      block to firebase.json pointing at this file and firestore.indexes.json,
+//      then deploy with `firebase deploy --only firestore:rules`.
+//
+// The queries these rules are written against:
+//   consultantProfiles - where('status','==','published')      [any SME]
+//                      - full collection scan                   [systemadmin]
+//   connectionRequests - where('smeUid','==',<own uid>)         [SME]
+//                      - orderBy('createdAt','desc')            [reviewer]
+// Neither needs a composite index, so firestore.indexes.json stays empty.
+//
+// The marketplace belongs to the platform owner (QTX): only SMEs who resolve to that
+// company can create requests, and only its staff (or a platform admin) can review
+// them. Reviewers list the collection unfiltered and scope it in memory, so requests
+// written before companyCode existed still reach the queue.
+// ============================================================================
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function currentUser() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function hasRole(roles) {
+      return signedIn() && currentUser().role in roles;
+    }
+
+    function isSystemAdmin() {
+      return hasRole(['systemadmin']);
+    }
+
+    function isSelf(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    function belongsToCompany(companyCode) {
+      return signedIn() && currentUser().companyCode == companyCode;
+    }
+
+    // The platform owner. SMEs who register independently rather than through a company's
+    // program link fall back to this code, and its staff run the marketplace.
+    function platformOwnerCode() {
+      return 'QTX';
+    }
+
+    function isPlatformAdmin() {
+      return hasRole(['systemadmin', 'admin']);
+    }
+
+    // Same read-time fallback the app uses: an SME with no companyCode on their user
+    // document belongs to the platform owner. Existing SMEs were never backfilled, so
+    // the blank case has to resolve here rather than being denied.
+    function smeCompanyCode() {
+      return currentUser().get('companyCode', '') == ''
+        ? platformOwnerCode()
+        : currentUser().get('companyCode', '');
+    }
+
+    function isPlatformOwnerSme() {
+      return signedIn() && smeCompanyCode() == platformOwnerCode();
+    }
+
+    // Staff resolve strictly - a staff account with a blank company must not inherit
+    // the platform owner's queues.
+    function isPlatformOwnerStaff() {
+      return isPlatformAdmin() || currentUser().get('companyCode', '') == platformOwnerCode();
+    }
+
+    // Mirrors canReviewConnectionRequests in src/services/connectionRequestService.ts: a review
+    // role AND the platform owner's workspace. Another company's operations staff must not see
+    // marketplace requests - their SMEs go through the interventions pipeline instead.
+    function isConnectionReviewer() {
+      return hasRole(['systemadmin', 'admin', 'director', 'projectadmin', 'projectmanager', 'operations'])
+        && isPlatformOwnerStaff();
+    }
+
+    function changedKeys() {
+      return request.resource.data.diff(resource.data).affectedKeys();
+    }
+
+    match /agents/{agentId} {
+      allow read: if signedIn();
+      allow create, update: if isSystemAdmin();
+      allow delete: if false;
+    }
+
+    match /companyAgentSettings/{companyCode} {
+      allow read: if isSystemAdmin() || belongsToCompany(companyCode);
+      allow create, update: if isSystemAdmin();
+      allow delete: if false;
+    }
+
+    // These records are written and read by the trusted FastAPI backend
+    // through Firebase Admin. Direct browser access is intentionally
+    // blocked.
+    match /externalAgentProjects/{projectId} {
+      allow read, write: if false;
+    }
+
+    // A consultant's own marketplace listing. The document id is the
+    // consultant's uid. Published listings are visible to every signed-in
+    // user so SMEs can browse them; drafts stay private to the owner.
+    match /consultantProfiles/{consultantUid} {
+      function isVerificationUnchanged() {
+        return request.resource.data.verificationStatus == resource.data.verificationStatus
+          && request.resource.data.verifiedAt == resource.data.verifiedAt
+          && request.resource.data.verifiedBy == resource.data.verifiedBy;
+      }
+
+      allow get, list: if signedIn() && (
+        isSystemAdmin()
+        || isSelf(consultantUid)
+        || resource.data.status == 'published'
+      );
+
+      // A consultant creates their own listing unverified; only an admin
+      // can ever set the verification badge.
+      allow create: if isSelf(consultantUid)
+        && request.resource.data.verificationStatus == 'unverified'
+        && request.resource.data.verifiedBy == null;
+
+      allow update: if isSystemAdmin()
+        || (isSelf(consultantUid) && isVerificationUnchanged());
+
+      allow delete: if false;
+    }
+
+    // An SME's request for a consultant or AI agent from the marketplace.
+    // The SME writes it once; only operations can move it through the
+    // pending -> contacted -> matched/declined flow.
+    match /connectionRequests/{requestId} {
+      function isRequestOwner() {
+        return signedIn() && resource.data.smeUid == request.auth.uid;
+      }
+
+      allow get, list: if isRequestOwner() || isConnectionReviewer();
+
+      allow create: if signedIn()
+        && request.resource.data.smeUid == request.auth.uid
+        && request.resource.data.status == 'pending'
+        // Only the platform owner's own SMEs use the marketplace. SMEs inside a company's
+        // programme pipeline request support through the interventions page instead.
+        && request.resource.data.companyCode == platformOwnerCode()
+        && isPlatformOwnerSme()
+        && request.resource.data.targetType in ['consultant', 'agent']
+        && request.resource.data.targetId is string
+        && request.resource.data.targetId.size() > 0
+        && request.resource.data.keys().hasAll(['smeUid', 'smeName', 'smeEmail', 'targetType', 'targetId', 'targetName', 'companyCode', 'status', 'createdAt'])
+        && !request.resource.data.keys().hasAny(['reviewerNote']);
+
+      // Reviewers record an outcome; nothing the SME submitted may be edited.
+      allow update: if isConnectionReviewer()
+        && changedKeys().hasOnly(['status', 'reviewerNote', 'updatedAt'])
+        && request.resource.data.status in ['pending', 'contacted', 'matched', 'declined'];
+
+      // Requests are an audit trail of what an SME asked for.
+      allow delete: if false;
+    }
+
+    // TODO: merge in rules for every other collection this app uses
+    // (users, companies, applications, participants, interventions,
+    // assignedInterventions, businessProfiles, usageSessions, ...)
+    // before this file is ever deployed.
+  }
+}

@@ -1,0 +1,279 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --app-desktop-font-size: 13px;
+  --app-mobile-font-size: 14px;
+  --app-autofill-bg: #ffffff;
+  --app-autofill-text: #111827;
+}
+
+html[data-theme='dark'] {
+  --app-autofill-bg: #171923;
+  --app-autofill-text: #f5f7fb;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: var(--app-desktop-font-size);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+/* =========================================================
+   Modals
+   Every modal opens vertically centred, as if `centered` were
+   passed at each call site. Uses Ant Design's own inline-block
+   technique rather than flex so a modal taller than the viewport
+   still scrolls instead of having its header clipped.
+   ========================================================= */
+
+.ant-modal-wrap {
+  text-align: center;
+}
+
+.ant-modal-wrap::before {
+  display: inline-block;
+
+  width: 0;
+  height: 100%;
+
+  vertical-align: middle;
+
+  content: '';
+}
+
+.ant-modal-wrap .ant-modal {
+  top: 0;
+
+  display: inline-block;
+
+  max-width: calc(100vw - 32px);
+
+  padding-bottom: 0;
+
+  text-align: start;
+
+  vertical-align: middle;
+}
+
+/* =========================================================
+   Segmented Controls
+   One pill design for every segmented in the app. Written with
+   :where() so page-level rules can still override it.
+   ========================================================= */
+
+:where(.ant-segmented) {
+  padding: 3px !important;
+  border: 1px solid rgba(109, 93, 251, 0.16);
+  background: rgba(248, 250, 252, 0.78) !important;
+}
+
+/* Ant Design's own .ant-segmented rule outranks :where(), which left the track
+   on its 6px token while the segments inside were already pills. Doubling the
+   class beats that default without !important, so a page rule can still win. */
+.ant-segmented.ant-segmented {
+  border-radius: 999px;
+}
+
+:where(.ant-segmented) .ant-segmented-item,
+:where(.ant-segmented) .ant-segmented-thumb {
+  border-radius: 999px !important;
+}
+
+:where(.ant-segmented) .ant-segmented-item {
+  color: #64748b;
+  font-weight: 700;
+  transition: color 0.18s ease, background 0.18s ease;
+}
+
+:where(.ant-segmented) .ant-segmented-item:not(.ant-segmented-item-selected):hover {
+  color: #334155;
+  background: rgba(109, 93, 251, 0.06);
+}
+
+:where(.ant-segmented) .ant-segmented-item-selected {
+  color: #6d5dfb;
+  box-shadow: 0 5px 14px rgba(109, 93, 251, 0.13);
+}
+
+html[data-theme='dark'] :where(.ant-segmented) {
+  border-color: rgba(139, 92, 246, 0.34);
+  background: rgba(15, 17, 23, 0.74) !important;
+}
+
+html[data-theme='dark'] :where(.ant-segmented) .ant-segmented-item {
+  color: #aeb8ca;
+}
+
+html[data-theme='dark'] :where(.ant-segmented) .ant-segmented-item:not(.ant-segmented-item-selected):hover {
+  color: #f1f5f9;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+html[data-theme='dark'] :where(.ant-segmented) .ant-segmented-item-selected,
+html[data-theme='dark'] :where(.ant-segmented) .ant-segmented-thumb {
+  background: linear-gradient(135deg, #7667ea, #6554d9) !important;
+  color: #ffffff !important;
+  box-shadow: 0 5px 15px rgba(91, 75, 217, 0.38);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.ant-segmented) .ant-segmented-item {
+    transition: none;
+  }
+}
+
+/* Browsers otherwise paint saved values with their own pale background,
+   which clashes with themed Ant Design fields, especially in dark mode. */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  color: var(--app-autofill-text) !important;
+  caret-color: var(--app-autofill-text) !important;
+  -webkit-text-fill-color: var(--app-autofill-text) !important;
+  -webkit-box-shadow: 0 0 0 1000px var(--app-autofill-bg) inset !important;
+  box-shadow: 0 0 0 1000px var(--app-autofill-bg) inset !important;
+  transition: background-color 600000s 0s, color 600000s 0s;
+}
+
+input:autofill,
+textarea:autofill,
+select:autofill {
+  color: var(--app-autofill-text) !important;
+  caret-color: var(--app-autofill-text) !important;
+  box-shadow: 0 0 0 1000px var(--app-autofill-bg) inset !important;
+}
+
+.ant-input-affix-wrapper:has(input:-webkit-autofill),
+.ant-input-affix-wrapper:has(input:autofill) {
+  background: var(--app-autofill-bg) !important;
+}
+
+a {
+  color: inherit;
+}
+
+/* Keep modal actions predictable: one action fills the row, while multiple
+   actions share it equally. This also covers custom footers rendered in the
+   modal body. */
+.ant-modal .ant-modal-footer,
+.ant-modal .ant-modal-footer .ant-space:has(> .ant-space-item > .ant-btn),
+.ant-modal .ant-modal-body .ant-space:has(> .ant-space-item > .ant-btn) {
+  display: flex;
+  width: 100%;
+  gap: 8px;
+  align-items: stretch;
+  flex-direction: row;
+}
+
+.ant-modal .ant-modal-footer > .ant-btn,
+.ant-modal .ant-modal-body > .ant-btn:not(.ant-btn-icon-only) {
+  flex: 1 1 0;
+  width: 100%;
+  min-width: 0;
+}
+
+/* Ant Design Space wraps each child in .ant-space-item, so the wrappers also
+   need to grow before their buttons can occupy the full action row. */
+.ant-modal .ant-modal-footer .ant-space:has(> .ant-space-item > .ant-btn) > .ant-space-item,
+.ant-modal .ant-modal-body .ant-space:has(> .ant-space-item > .ant-btn) > .ant-space-item {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.ant-modal .ant-modal-footer .ant-space-item > .ant-btn,
+.ant-modal .ant-modal-body .ant-space-item > .ant-btn {
+  width: 100%;
+}
+
+/* Table pagination is always centered and never offers a page-size picker. */
+.ant-table-wrapper .ant-table-pagination {
+  justify-content: center !important;
+}
+
+.ant-table-wrapper .ant-pagination-options {
+  display: none !important;
+}
+
+.public-result-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #f7f8fc;
+}
+
+html[data-theme='dark'] .public-result-page {
+  background: #0f1117;
+}
+
+@media (max-width: 991px) {
+  body {
+    font-size: var(--app-mobile-font-size);
+  }
+}
+
+@media (max-width: 767px) {
+  /* No scrollbars anywhere on a phone - every scroller still scrolls, it just
+     does not spend width on a bar the user cannot grab anyway. */
+  html,
+  body,
+  * {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar,
+  *::-webkit-scrollbar,
+  *::-webkit-scrollbar-thumb,
+  *::-webkit-scrollbar-track {
+    width: 0;
+    height: 0;
+
+    display: none;
+  }
+
+  .responsive-list-card .ant-btn:not(.ant-btn-icon-only),
+  .ant-modal .ant-modal-footer .ant-btn,
+  .ant-modal .ant-modal-body .ant-btn:not(.ant-btn-icon-only),
+  .ant-drawer .ant-drawer-body .ant-btn:not(.ant-btn-icon-only),
+  .ant-drawer .ant-drawer-extra .ant-btn:not(.ant-btn-icon-only),
+  .applicant-card .ant-btn:not(.ant-btn-icon-only) {
+    width: 100%;
+  }
+
+  .ant-modal .ant-modal-footer,
+  .ant-modal .ant-modal-footer .ant-space,
+  .ant-modal .ant-modal-body .ant-space,
+  .ant-drawer .ant-drawer-extra,
+  .ant-drawer .ant-drawer-extra .ant-space {
+    width: 100%;
+  }
+
+  .ant-drawer .ant-drawer-extra .ant-space {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

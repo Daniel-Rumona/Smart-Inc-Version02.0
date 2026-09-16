@@ -1,0 +1,402 @@
+.pitch-coach-page {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.pitch-coach-loading {
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+}
+
+.pitch-coach-card {
+    border-radius: 20px;
+}
+
+.pitch-coach-brief-input {
+    margin-top: 18px;
+}
+
+/* =========================================================
+   Pitch Coach Mode Selector
+   ========================================================= */
+
+.pitch-coach-control-row {
+    width: 100%;
+}
+
+.pitch-coach-mode-segmented {
+    width: 100%;
+}
+
+.pitch-coach-mode-segmented .ant-segmented-group {
+    width: 100%;
+}
+
+.pitch-coach-mode-segmented .ant-segmented-item {
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+}
+
+.pitch-coach-mode-segmented .ant-segmented-item-label {
+    width: 100%;
+    padding-inline: 12px;
+}
+
+
+.pitch-coach-create-button {
+    margin-top: 24px;
+    min-height: 48px;
+    padding-inline: 24px;
+    font-weight: 600;
+}
+
+.pitch-coach-intro {
+    display: grid;
+    grid-template-columns: auto minmax(260px, 1fr) auto;
+    gap: 18px;
+    align-items: center;
+    margin: 0 0 4px;
+    padding: 18px 20px;
+    border: 1px solid rgba(124, 58, 237, 0.12);
+    border-radius: 18px;
+    background: linear-gradient(115deg, rgba(124, 58, 237, 0.075), rgba(37, 99, 235, 0.035) 55%, rgba(255, 255, 255, 0.72));
+}
+
+.pitch-coach-mark {
+    display: grid;
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+    place-items: center;
+    border-radius: 14px;
+    color: #fff;
+    font-size: 20px;
+    background: linear-gradient(135deg, #7c3aed, #2563eb);
+    box-shadow: 0 8px 20px rgba(109, 40, 217, 0.2);
+}
+
+.pitch-coach-intro-copy .ant-typography {
+    margin: 0;
+}
+
+.pitch-coach-intro-copy .ant-typography-secondary {
+    display: block;
+    margin: 3px 0 0;
+}
+
+.pitch-coach-facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+.pitch-coach-facts span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    border: 1px solid rgba(100, 116, 139, 0.14);
+    border-radius: 999px;
+    color: #64748b;
+    font-size: 12px;
+    background: rgba(255, 255, 255, 0.74);
+    white-space: nowrap;
+}
+
+.pitch-coach-setup-card,
+.pitch-coach-tips-card {
+    height: 100%;
+}
+
+.pitch-coach-setup-card .ant-input-textarea {
+    display: block;
+    margin: 20px 0;
+}
+
+.pitch-coach-tips-card {
+    background: linear-gradient(155deg, #fff 42%, rgba(124, 58, 237, 0.05));
+}
+
+.pitch-coach-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 14px 0 4px;
+    padding: 0;
+    list-style: none;
+}
+
+.pitch-coach-steps li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.pitch-coach-steps li>div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.pitch-coach-step-icon {
+    display: grid;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    place-items: center;
+    border-radius: 12px;
+    color: #6d28d9;
+    font-size: 16px;
+    background: rgba(124, 58, 237, 0.1);
+}
+
+.pitch-coach-section-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.pitch-coach-section-heading .ant-typography {
+    margin: 0 0 6px !important;
+}
+
+.pitch-coach-section-icon {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    border-radius: 17px;
+    background: color-mix(in srgb, var(--ant-color-primary, #1677ff) 12%, transparent);
+    color: var(--ant-color-primary, #1677ff);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+}
+
+.pitch-coach-orb-card {
+    overflow: hidden;
+}
+
+.pitch-coach-active-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(270px, 320px);
+    align-items: start;
+    gap: 18px;
+}
+
+.pitch-coach-project-panel {
+    position: sticky;
+    top: 12px;
+}
+
+.pitch-coach-project-panel-copy {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.pitch-coach-project-list {
+    max-height: min(48dvh, 400px);
+    margin-bottom: 12px;
+    overflow-y: auto;
+}
+
+.pitch-coach-project-list .ant-list-item {
+    padding: 10px 8px;
+    border-radius: 10px;
+}
+
+.pitch-coach-project-list .ant-list-item.is-active {
+    background: rgba(124, 58, 237, .08);
+}
+
+.pitch-coach-project-list .ant-list-item-meta-title {
+    margin-bottom: 2px !important;
+    font-size: 13px;
+}
+
+.pitch-coach-control-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 18px;
+    padding-bottom: 17px;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.pitch-coach-control-row>div:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.pitch-coach-eyebrow {
+    font-size: 11px;
+    font-weight: 750;
+    letter-spacing: 0.08em;
+}
+
+/* Voice orb */
+
+.pitch-orb-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    padding: 56px 24px 48px;
+}
+
+.pitch-orb-wrap {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    display: grid;
+    place-items: center;
+}
+
+.pitch-orb {
+    width: 148px;
+    height: 148px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 32% 28%, #a78bfa, #7c3aed 55%, #4c1d95 100%);
+    box-shadow: 0 0 60px rgba(124, 58, 237, 0.45), inset 0 0 40px rgba(255, 255, 255, 0.15);
+    animation: pitch-orb-breathe 3.6s ease-in-out infinite;
+    transform: scale(var(--orb-scale, 1));
+    transition: transform 0.12s ease-out;
+}
+
+.pitch-orb-wrap.is-connecting .pitch-orb {
+    animation: pitch-orb-breathe 1s ease-in-out infinite;
+}
+
+.pitch-orb-wrap.is-listening .pitch-orb {
+    animation: pitch-orb-breathe 2.2s ease-in-out infinite;
+}
+
+.pitch-orb-wrap.is-speaking .pitch-orb {
+    animation: none;
+}
+
+.pitch-orb-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid rgba(124, 58, 237, 0.5);
+    opacity: 0;
+}
+
+.pitch-orb-wrap.is-speaking .pitch-orb-ring {
+    animation: pitch-orb-ripple 1.6s ease-out infinite;
+}
+
+.pitch-orb-wrap.is-speaking .pitch-orb-ring:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.pitch-orb-wrap.is-speaking .pitch-orb-ring:nth-child(3) {
+    animation-delay: 1s;
+}
+
+.pitch-orb-wrap.is-connecting .pitch-orb-ring:first-child {
+    opacity: 1;
+    border-style: dashed;
+    animation: pitch-orb-spin 2.4s linear infinite;
+}
+
+.pitch-orb-status {
+    font-size: 13px;
+    text-align: center;
+}
+
+.pitch-orb-caption {
+    max-width: 460px;
+    margin: 0 !important;
+    padding: 12px 18px;
+    border-radius: 14px;
+    background: rgba(124, 58, 237, 0.06);
+    color: #4c1d95;
+    text-align: center;
+    font-size: 14px;
+}
+
+html[data-theme='dark'] .pitch-orb-caption {
+    background: rgba(167, 139, 250, 0.12);
+    color: #e9d5ff;
+}
+
+@keyframes pitch-orb-breathe {
+
+    0%,
+    100% {
+        transform: scale(var(--orb-scale, 1));
+    }
+
+    50% {
+        transform: scale(calc(var(--orb-scale, 1) * 1.045));
+    }
+}
+
+@keyframes pitch-orb-ripple {
+    0% {
+        transform: scale(0.88);
+        opacity: 0.55;
+    }
+
+    100% {
+        transform: scale(1.9);
+        opacity: 0;
+    }
+}
+
+@keyframes pitch-orb-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 760px) {
+    .pitch-coach-intro {
+        grid-template-columns: auto 1fr;
+    }
+
+    .pitch-coach-facts {
+        grid-column: 1 / -1;
+        justify-content: flex-start;
+    }
+
+    .pitch-coach-control-row {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .pitch-coach-control-row .ant-segmented {
+        width: 100%;
+    }
+
+    .pitch-coach-active-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .pitch-coach-project-panel {
+        position: static;
+    }
+
+    .pitch-orb-wrap {
+        width: 160px;
+        height: 160px;
+    }
+
+    .pitch-orb {
+        width: 120px;
+        height: 120px;
+    }
+}

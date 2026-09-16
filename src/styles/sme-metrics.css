@@ -1,0 +1,30 @@
+.sme-metrics-page .filter-bar-primary > * {
+  min-width: 0;
+}
+
+.sme-metrics-period-control {
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.sme-metrics-period-control .ant-segmented {
+  white-space: nowrap;
+}
+
+.sme-metrics-clickable-row {
+  cursor: pointer;
+}
+
+.sme-metrics-drilldown {
+  width: 100%;
+}
+
+.sme-metrics-drilldown .ant-card {
+  height: 100%;
+}
+
+.sme-metrics-drilldown .ant-card-body {
+  min-height: 116px;
+}

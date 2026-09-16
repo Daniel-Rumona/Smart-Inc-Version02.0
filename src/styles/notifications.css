@@ -1,0 +1,176 @@
+/* =========================================================
+   Notifications Modal
+   ========================================================= */
+
+.notifications-modal .notifications-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+
+    margin-bottom: 4px;
+    padding-bottom: 8px;
+
+    border-bottom: 1px solid rgba(109, 93, 251, .12);
+}
+
+.notifications-modal .notifications-summary>.ant-typography {
+    flex: 0 1 auto;
+
+    min-width: 0;
+
+    white-space: nowrap;
+}
+
+/* The shell stretches modal-body buttons on mobile; this one stays a compact inline link. */
+.notifications-modal .notifications-summary .ant-btn {
+    flex: 0 0 auto;
+
+    width: auto !important;
+
+    padding-inline: 0;
+}
+
+
+/* =========================================================
+   Notification Row
+   ========================================================= */
+
+.notifications-modal .notification-item {
+    align-items: flex-start;
+
+    gap: 10px;
+
+    margin-block: 6px;
+    padding: 10px 12px !important;
+
+    border-radius: 12px;
+
+    transition: background .18s ease, border-color .18s ease;
+}
+
+.notifications-modal .notification-item .ant-list-item-meta {
+    align-items: center;
+}
+
+.notifications-modal .notification-item .ant-list-item-meta-title {
+    margin-bottom: 2px !important;
+
+    font-size: 14px;
+}
+
+.notifications-modal .notification-item .ant-list-item-meta-description {
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   Unread
+   ========================================================= */
+
+.notifications-modal .notification-item.is-unread {
+    cursor: pointer;
+
+    border: 1px solid rgba(109, 93, 251, .2);
+
+    background: rgba(109, 93, 251, .06);
+}
+
+.notifications-modal .notification-item.is-unread:hover {
+    border-color: rgba(109, 93, 251, .4);
+
+    background: rgba(109, 93, 251, .1);
+}
+
+.notifications-modal .notification-item.is-unread .ant-list-item-meta-title {
+    font-weight: 700;
+}
+
+.notification-state {
+    flex: 0 0 auto;
+
+    width: 8px;
+    height: 8px;
+
+    margin-top: 7px;
+
+    border-radius: 50%;
+
+    background: transparent;
+}
+
+.notification-item.is-unread .notification-state {
+    background: #6d5dfb;
+
+    box-shadow: 0 0 0 3px rgba(109, 93, 251, .16);
+}
+
+.notification-state-label {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    overflow: hidden;
+
+    clip-path: inset(50%);
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   Read
+   ========================================================= */
+
+.notifications-modal .notification-item.is-read {
+    border: 1px solid transparent;
+
+    background: transparent;
+
+    opacity: .62;
+}
+
+.notifications-modal .notification-item.is-read .ant-list-item-meta-title {
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   Dark Mode
+   ========================================================= */
+
+html[data-theme='dark'] .notifications-modal .notifications-summary {
+    border-bottom-color: rgba(139, 92, 246, .2);
+}
+
+html[data-theme='dark'] .notifications-modal .notification-item.is-unread {
+    border-color: rgba(139, 92, 246, .28);
+
+    background: rgba(139, 92, 246, .14);
+}
+
+html[data-theme='dark'] .notifications-modal .notification-item.is-unread:hover {
+    border-color: rgba(167, 139, 250, .5);
+
+    background: rgba(139, 92, 246, .2);
+}
+
+html[data-theme='dark'] .notification-item.is-unread .notification-state {
+    background: #a78bfa;
+
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, .22);
+}
+
+/* =========================================================
+   Reduced Motion
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    .notifications-modal .notification-item {
+        transition: none;
+    }
+}

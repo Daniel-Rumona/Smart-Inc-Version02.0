@@ -1,0 +1,16 @@
+.applications-metrics { margin-bottom: 16px; }
+.applications-panel { height: 100%; border-radius: 18px !important; border: 1px solid rgba(109, 93, 251, .12) !important; }
+.applications-panel .ant-card-body { padding: 14px; }
+.applications-row { cursor: pointer; transition: background .2s ease; }
+.applications-row:hover td, .applications-selected-row td { background: rgba(109, 93, 251, .08) !important; }
+.applications-detail-panel { min-height: 540px; }
+.applications-detail-body, .applications-detail-stack { width: 100%; }
+.applications-detail-body { display: grid; gap: 16px; }
+.applications-detail-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.applications-detail-heading h4 { margin: 0 !important; }
+.applications-detail-stack > div { display: grid; gap: 7px; }
+.applications-detail-stack .ant-select { width: 100%; }
+@media (max-width: 767px) {
+  .applications-metrics > div:nth-child(n + 3) { display: none; }
+  .applications-panel .ant-card-body { padding: 8px; }
+}
