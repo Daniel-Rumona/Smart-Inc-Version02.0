@@ -167,9 +167,6 @@ export default function ConsultantProfilePage() {
     const primaryPhoneIsValid = localPhoneNumber(profile.phone).length === expectedPhoneLength && expectedPhoneLength > 0
     const alternativePhoneIsValid = !profile.alternativePhone || localPhoneNumber(profile.alternativePhone).length === expectedPhoneLength
 
-    const [firstName = 'Not added', ...surnameParts] = profile.name.trim().split(/\s+/).filter(Boolean)
-    const surname = surnameParts.join(' ') || 'Not added'
-
     return (
         <DashboardPage className="consultant-page">
             <div className="consultant-profile-layout">
@@ -220,7 +217,7 @@ export default function ConsultantProfilePage() {
                             <div className="consultant-day-schedule">
                                 <div className="consultant-inline-services-head"><div><Typography.Title level={5}>{WEEK_DAYS[activeAvailabilityDay]}</Typography.Title><Typography.Paragraph type="secondary">Add more than one range when you have a break during the day.</Typography.Paragraph></div><Button icon={<PlusOutlined />} onClick={addAvailabilitySlot} disabled={(activeAvailabilityDay === 0 || activeAvailabilityDay === 6) && profile.weekendAvailability === 'unavailable'}>Add time</Button></div>
                                 {profile.availability.filter((slot) => slot.dayOfWeek === activeAvailabilityDay).length === 0 && <div className="consultant-availability-empty"><ClockCircleOutlined /> No times added for {WEEK_DAYS[activeAvailabilityDay]} yet.</div>}
-                                {profile.availability.filter((slot) => slot.dayOfWeek === activeAvailabilityDay).sort((left, right) => timeToMinutes(left.startTime) - timeToMinutes(right.startTime)).map((slot) => <div className="consultant-availability-row" key={slot.id}><ClockCircleOutlined /><TimePicker.RangePicker aria-label="Availability time range" value={[dayjs(slot.startTime, 'HH:mm'), dayjs(slot.endTime, 'HH:mm')]} format="HH:mm" minuteStep={15} allowClear={false} onChange={(range) => { if (range) updateAvailabilitySlot(slot.id, { startTime: range[0].format('HH:mm'), endTime: range[1].format('HH:mm') }) }} /><Button danger type="text" aria-label="Remove time" icon={<DeleteOutlined />} onClick={() => update({ availability: profile.availability.filter((item) => item.id !== slot.id) })} /></div>)}
+                                {profile.availability.filter((slot) => slot.dayOfWeek === activeAvailabilityDay).sort((left, right) => timeToMinutes(left.startTime) - timeToMinutes(right.startTime)).map((slot) => <div className="consultant-availability-row" key={slot.id}><ClockCircleOutlined /><TimePicker.RangePicker aria-label="Availability time range" value={[dayjs(slot.startTime, 'HH:mm'), dayjs(slot.endTime, 'HH:mm')]} format="HH:mm" minuteStep={15} allowClear={false} onChange={(range) => { if (range?.[0] && range?.[1]) updateAvailabilitySlot(slot.id, { startTime: range[0].format('HH:mm'), endTime: range[1].format('HH:mm') }) }} /><Button danger type="text" aria-label="Remove time" icon={<DeleteOutlined />} onClick={() => update({ availability: profile.availability.filter((item) => item.id !== slot.id) })} /></div>)}
                             </div>
                             <div className="consultant-special-availability">
                                 <div className="consultant-special-availability-row"><div><strong>Public holiday availability</strong><small>Let SMEs know whether they can request holiday support.</small></div><div className="consultant-special-options" role="radiogroup" aria-label="Public holiday availability">{SPECIAL_AVAILABILITY_OPTIONS.map(({ value, label }) => <button type="button" key={value} role="radio" aria-checked={profile.holidayAvailability === value} className={profile.holidayAvailability === value ? 'is-selected' : ''} onClick={() => update({ holidayAvailability: value })}>{label}</button>)}</div></div>
@@ -250,7 +247,7 @@ export default function ConsultantProfilePage() {
                             <Col className="consultant-field-location" id="consultant-section-location" xs={24}>
                                 <Form.Item label="Where are you based?" required>
                                     <div className="consultant-location-choice-grid" role="radiogroup" aria-label="Country">
-                                        {SUPPORTED_COUNTRIES.map(({ value, currencies, Icon, detail }) =>
+                                        {SUPPORTED_COUNTRIES.map(({ value, currencies, Icon }) =>
                                             <button key={value} type="button" role="radio" aria-checked={profile.country === value} className={`consultant-profile-choice-card${profile.country === value ? ' is-selected' : ''}`} onClick={() => update({ country: value, province: '', currency: currencies[0], phone: withDiallingCode(profile.phone, value), alternativePhone: withDiallingCode(profile.alternativePhone, value) })}>
                                                 <Icon />
                                                 <span>
@@ -282,7 +279,7 @@ export default function ConsultantProfilePage() {
                                     <div className="consultant-location-choice-grid consultant-currency-choice-grid" role="radiogroup"
                                         aria-label="Daily-rate currency">
                                         {SUPPORTED_COUNTRIES.filter(({ value }) =>
-                                            value === profile.country).flatMap(({ currencies, value }) =>
+                                            value === profile.country).flatMap(({ currencies }) =>
                                                 currencies.map((currency) =>
                                                     <button
                                                         key={currency}

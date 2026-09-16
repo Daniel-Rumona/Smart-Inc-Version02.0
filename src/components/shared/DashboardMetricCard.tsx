@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import type { ReactNode, RefObject } from 'react'
 import { useEffect, useRef } from 'react'
 import { Card, Grid, Skeleton, Typography } from 'antd'
 import { RightOutlined } from '@ant-design/icons'
@@ -29,11 +29,10 @@ function AnimatedMetricValue({ value }: AnimatedMetricValueProps) {
     const countUpRef = useRef<HTMLSpanElement | null>(null)
 
     const { update } = useCountUp({
-        ref: countUpRef,
+        ref: countUpRef as RefObject<HTMLElement>,
         end: value,
         duration: 1.2,
         separator: ',',
-        preserveValue: true,
         startOnMount: true,
     })
 

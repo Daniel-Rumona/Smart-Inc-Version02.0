@@ -407,7 +407,7 @@ const PitchCoachPage = () => {
             if (
                 volume &&
                 typeof (
-                    volume as Promise<number>
+                    volume as unknown as Promise<number>
                 )?.then === 'function'
             ) {
                 void Promise.resolve(volume)

@@ -33,7 +33,7 @@ export type OperationsTask = {
   createdBy: string
 }
 
-export type OperationsTaskInput = Omit<OperationsTask, 'id' | 'companyCode' | 'createdBy' | 'createdAt' | 'updatedAt' | 'completedAt' | 'archived' | 'recurrenceId'> & {
+export type OperationsTaskInput = Omit<OperationsTask, 'id' | 'companyCode' | 'createdBy' | 'createdAt' | 'updatedAt' | 'completedAt' | 'archived' | 'recurrenceId' | 'recurrence'> & {
   recurrence?: Omit<OperationsTaskRecurrence, 'occurrence'>
 }
 

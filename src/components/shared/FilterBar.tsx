@@ -1,10 +1,11 @@
-import { Button, Grid, Modal } from 'antd'
+import { Button, Grid, Modal, Typography } from 'antd'
 import { SlidersOutlined } from '@ant-design/icons'
 import { useState, type ReactNode } from 'react'
 import { MotionCard, SunkenPanel } from '@/components/shared/MotionCard'
 import { useLanguage } from '@/providers/LanguageProvider'
 
 type FilterBarProps = {
+  title?: ReactNode
   primary: ReactNode
   advanced?: ReactNode
   actions?: ReactNode
@@ -17,7 +18,7 @@ type FilterBarProps = {
   compact?: boolean
 }
 
-export const FilterBar = ({ primary, advanced, actions, compact = false }: FilterBarProps) => {
+export const FilterBar = ({ title, primary, advanced, actions, compact = false }: FilterBarProps) => {
   const { t } = useLanguage()
   const screens = Grid.useBreakpoint()
   const isMobile = !screens.md
@@ -28,6 +29,7 @@ export const FilterBar = ({ primary, advanced, actions, compact = false }: Filte
     <>
       <MotionCard className="filter-bar">
         <SunkenPanel className="filter-bar-panel">
+          {title && <Typography.Title level={5} className="filter-bar-title">{title}</Typography.Title>}
           {isMobile && !inline
             ? <Button block icon={<SlidersOutlined />} onClick={() => setAdvancedOpen(true)}>{t('common.filters')}</Button>
             : (

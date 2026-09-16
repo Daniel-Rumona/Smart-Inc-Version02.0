@@ -22,7 +22,9 @@ import {
 } from '@ant-design/icons'
 
 import { Link } from 'react-router-dom'
-import type { SystemMenuItem } from '@/layouts/SystemLayout'
+import type { MenuProps } from 'antd'
+
+type SystemMenuItem = NonNullable<MenuProps['items']>[number]
 
 export function getOperationsMenu(): SystemMenuItem[] {
     return [

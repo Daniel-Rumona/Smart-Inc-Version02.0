@@ -19,7 +19,7 @@ import {
     TeamOutlined,
     ThunderboltOutlined,
 } from '@ant-design/icons'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, type Variants } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { LANGUAGES, type LanguageCode } from '@/config/languages'
 import { useLanguage } from '@/providers/LanguageProvider'
@@ -79,7 +79,7 @@ const audienceCards: AudienceCard[] = [
     },
 ]
 
-const fadeUp = {
+const fadeUp: Variants = {
     hidden: { opacity: 0, y: 18 },
     show: (delay = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.5, delay, ease: 'easeOut' } }),
 }
